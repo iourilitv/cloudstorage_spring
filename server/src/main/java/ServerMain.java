@@ -7,11 +7,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class ServerMain {
 
-//    public static void main(String[] args) throws Exception {
-//        CloudStorageServer css = new CloudStorageServer();
-//        css.initConfiguration();
-//        css.run();
-//    }
     public static void main(String[] args) throws Exception {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(ServerSpringConfig.class);
