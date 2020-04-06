@@ -12,12 +12,6 @@ import java.util.Arrays;
  * This class responds for secure encoding and decoding of passwords or anything else.
  */
 public class SecureHasher {
-//    //инициируем объект класса
-//    private static final SecureHasher ownInstance = new SecureHasher();
-//
-//    public static SecureHasher getOwnInstance() {
-//        return ownInstance;
-//    }
 
     //инициируем объект генератора безопасного случайного числа
     private final SecureRandom secureRandom = new SecureRandom();
