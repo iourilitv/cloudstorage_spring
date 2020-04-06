@@ -95,7 +95,8 @@ public class CloudStorageServer {
      */
     public void run() throws Exception {
         //инициируем настройки контроллера авторизации пользователей
-        usersAuthController.init(this);
+//        usersAuthController.init(this);
+
         //инициируем объект директории по умолчанию в серверной части GUI
         storageDefaultDirItem = new Item(STORAGE_DEFAULT_DIR);
         //инициируем объект сетевого подключения

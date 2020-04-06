@@ -30,19 +30,23 @@ public class UsersAuthController {
 
     public UsersAuthController(SecureHasher secureHasher) {
         this.secureHasher = secureHasher;
-    }
-
-    /**
-     * Метод инициирует необходимые объекты и переменные
-     * @param storageServer - объект сервера
-     */
-    public void init(CloudStorageServer storageServer) {
-        this.storageServer = storageServer;
         //инициируем множество авторизованных клиентов
         authorizedUsers = new HashMap<>();
         //инициируем объект соединения с БД
         connection = new MySQLConnect().connect();
     }
+
+//    /**
+//     * Метод инициирует необходимые объекты и переменные
+//     * @param storageServer - объект сервера
+//     */
+//    public void init(CloudStorageServer storageServer) {
+//        this.storageServer = storageServer;
+//        //инициируем множество авторизованных клиентов
+//        authorizedUsers = new HashMap<>();
+//        //инициируем объект соединения с БД
+//        connection = new MySQLConnect().connect();
+//    }
 
     /**
      * Метод-прокладка запускает процесс регистрации нового пользователя в БД
