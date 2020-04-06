@@ -8,12 +8,12 @@ import java.nio.file.Paths;
  * This class is responsible for operating with the Item class.
  */
 public class ItemUtils {
-    //инициируем синглтон(объект класса)
-    private static ItemUtils ownInstance = new ItemUtils();
-
-    public static ItemUtils getInstance() {
-        return ownInstance;
-    }
+//    //инициируем синглтон(объект класса)
+//    private static ItemUtils ownInstance = new ItemUtils();
+//
+//    public static ItemUtils getInstance() {
+//        return ownInstance;
+//    }
 
     /**
      * Метод возвращает объект заданной директории.

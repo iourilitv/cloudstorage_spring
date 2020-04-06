@@ -15,13 +15,14 @@ import java.util.Map;
  * Класс для организации сервиса авторизации и связи с БД
  * Связь БД и приложения осуществляется через посредника, JDBC драйвер(библиотека).
  */
+//@Component
 public class UsersAuthController {
-    //инициируем объект класса
-    private static UsersAuthController ownInstance = new UsersAuthController();
-
-    public static UsersAuthController getOwnInstance() {
-        return ownInstance;
-    }
+//    //инициируем объект класса
+//    private static UsersAuthController ownInstance = new UsersAuthController();
+//
+//    public static UsersAuthController getOwnInstance() {
+//        return ownInstance;
+//    }
 
     //принимаем объект сервера
     private CloudStorageServer storageServer;
@@ -38,10 +39,18 @@ public class UsersAuthController {
      * Метод инициирует необходимые объекты и переменные
      * @param storageServer - объект сервера
      */
+//    public void init(CloudStorageServer storageServer) {
+//        ownInstance.storageServer = storageServer;
+//        //инициируем множество авторизованных клиентов
+//        ownInstance.authorizedUsers = new HashMap<>();
+//        //инициируем объект соединения с БД
+//        connection = new MySQLConnect().connect();
+//    }
+//    @Autowired
     public void init(CloudStorageServer storageServer) {
-        ownInstance.storageServer = storageServer;
+        this.storageServer = storageServer;
         //инициируем множество авторизованных клиентов
-        ownInstance.authorizedUsers = new HashMap<>();
+        authorizedUsers = new HashMap<>();
         //инициируем объект соединения с БД
         connection = new MySQLConnect().connect();
     }

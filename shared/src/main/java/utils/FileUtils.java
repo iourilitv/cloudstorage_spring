@@ -20,15 +20,17 @@ import java.util.concurrent.CountDownLatch;
  * The common class is for operations with fileObjects.
  */
 public class FileUtils {
-    //инициируем синглтон(объект класса)
-    private static FileUtils ownInstance = new FileUtils();
-
-    public static FileUtils getInstance() {
-        return ownInstance;
-    }
+//    //инициируем синглтон(объект класса)
+//    private static FileUtils ownInstance = new FileUtils();
+//
+//    public static FileUtils getInstance() {
+//        return ownInstance;
+//    }
 
     //принимаем объект обработчика операций с объектами элементов списков в GUI
-    private final ItemUtils itemUtils = ItemUtils.getInstance();
+//    private final ItemUtils itemUtils = ItemUtils.getInstance();
+    private ItemUtils itemUtils;
+
     //принимаем объект обработчика операций хэширования
     private final HashUtils hashUtils = HashUtils.getInstance();
     //инициируем строковую переменную для вывода сообщений
