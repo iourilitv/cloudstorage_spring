@@ -19,7 +19,13 @@ public class UsersAuthController {
     //принимаем объект сервера
     private CloudStorageServer storageServer;
     //принимаем объект для операций шифрования
-    private final SecureHasher secureHasher = SecureHasher.getOwnInstance();
+//    private final SecureHasher secureHasher = SecureHasher.getOwnInstance();
+    private SecureHasher secureHasher;
+
+    public UsersAuthController(SecureHasher secureHasher) {
+        this.secureHasher = secureHasher;
+    }
+
     //объявляем множество авторизованных клиентов <логин, соединение>
     private Map<String, ChannelHandlerContext> authorizedUsers;
     //объявляем объект соединения с БД

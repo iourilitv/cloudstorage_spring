@@ -4,6 +4,7 @@ import jdbc.UsersAuthController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import security.SecureHasher;
 import utils.FileManager;
 import utils.FileUtils;
 import utils.HashUtils;
@@ -12,6 +13,11 @@ import utils.ItemUtils;
 @Configuration
 @ComponentScan //по умолчанию директория корневая, но можно указать, например @ComponentScan("ru.folder")
 public class ServerSpringConfig {
+
+    @Bean
+    public SecureHasher secureHasher() {
+        return new SecureHasher();
+    }
 
     @Bean
     public HashUtils hashUtils() {
@@ -25,7 +31,7 @@ public class ServerSpringConfig {
 
     @Bean
     public UsersAuthController usersAuthController() {
-        return new UsersAuthController();
+        return new UsersAuthController(secureHasher());
     }
 
     @Bean
