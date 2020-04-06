@@ -7,8 +7,6 @@ import messages.DirectoryMessage;
 import messages.FileFragmentMessage;
 import messages.FileMessage;
 import netty.NettyServer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import utils.*;
 
 import java.io.File;
@@ -21,7 +19,6 @@ import java.nio.file.Paths;
 /**
  * This server's class is for operations with a cloud storage.
  */
-//@Component
 public class CloudStorageServer {
     //инициируем переменную для печати сообщений в консоль
     private final PrintStream log = System.out;
@@ -34,19 +31,12 @@ public class CloudStorageServer {
     //объявляем объекты директории пользователя по умолчанию в серверной части GUI
     private Item storageDefaultDirItem;
     //принимаем объект контроллера авторизации пользователей
-//    private final UsersAuthController usersAuthController = UsersAuthController.getOwnInstance();
     private UsersAuthController usersAuthController;
-
     //объявляем объект файлового обработчика
-//    private final FileUtils fileUtils = FileUtils.getInstance();
     private FileUtils fileUtils;
-
     //принимаем объект обработчика операций с объектами элементов списков в GUI
-//    private final ItemUtils itemUtils = ItemUtils.getInstance();
     private ItemUtils itemUtils;
-
     //принимаем объект хендлера настроек приложения
-//    private final PropertiesHandler propertiesHandler = PropertiesHandler.getInstance();
     private PropertiesHandler propertiesHandler;
 
 //    @Autowired - не работает, т.к. в UsersAuthController перекрестно передается CloudStorageServer

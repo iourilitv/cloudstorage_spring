@@ -15,13 +15,6 @@ import java.util.stream.Collectors;
  * This server's class responds for operations with server app's properties.
  */
 public class PropertiesHandler {
-//    //инициируем синглтон хендлера настроек
-//    private static final PropertiesHandler ownInstance = new PropertiesHandler();
-//
-//    public static PropertiesHandler getInstance() {
-//        return ownInstance;
-//    }
-
     //инициируем константу строки пути к файлу настроек(в папке, где разварачивается jar-архив)
     private final Path toCfgFilePath = Paths.get("config.json");
     //инициируем объект для работы с json-файлами
