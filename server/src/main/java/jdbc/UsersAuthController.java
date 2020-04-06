@@ -8,7 +8,6 @@ import security.SecureHasher;
 import java.io.ByteArrayInputStream;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,13 +27,6 @@ public class UsersAuthController {
     //объявляем объект подготовленного запрос в БД
     private PreparedStatement preparedStatement;
 
-//    public UsersAuthController(SecureHasher secureHasher) {
-//        this.secureHasher = secureHasher;
-//        //инициируем множество авторизованных клиентов
-//        authorizedUsers = new HashMap<>();
-//        //инициируем объект соединения с БД
-//        connection = new MySQLConnect().connect();
-//    }
     public UsersAuthController(SecureHasher secureHasher,
         Map<String, ChannelHandlerContext> authorizedUsers, Connection connection) {
         this.secureHasher = secureHasher;
@@ -43,18 +35,6 @@ public class UsersAuthController {
         //инициируем объект соединения с БД
         this.connection = connection;
     }
-
-//    /**
-//     * Метод инициирует необходимые объекты и переменные
-//     * @param storageServer - объект сервера
-//     */
-//    public void init(CloudStorageServer storageServer) {
-//        this.storageServer = storageServer;
-//        //инициируем множество авторизованных клиентов
-//        authorizedUsers = new HashMap<>();
-//        //инициируем объект соединения с БД
-//        connection = new MySQLConnect().connect();
-//    }
 
     /**
      * Метод-прокладка запускает процесс регистрации нового пользователя в БД
