@@ -4,6 +4,7 @@ import jdbc.UsersAuthController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import utils.FileManager;
 import utils.FileUtils;
 import utils.ItemUtils;
 
@@ -12,13 +13,18 @@ import utils.ItemUtils;
 public class ServerSpringConfig {
 
     @Bean
+    public FileManager fileManager() {
+        return new FileManager();
+    }
+
+    @Bean
     public UsersAuthController usersAuthController() {
         return new UsersAuthController();
     }
 
     @Bean
     public PropertiesHandler propertiesHandler() {
-        return new PropertiesHandler();
+        return new PropertiesHandler(fileManager());
     }
 
     @Bean

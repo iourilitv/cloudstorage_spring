@@ -9,12 +9,12 @@ import java.nio.file.StandardCopyOption;
  * This class is for operations with files inside jar-archive.
  */
 public class FileManager {
-    //инициируем синглтон хендлера настроек
-    private static final FileManager ownInstance = new FileManager();
-
-    public static FileManager getInstance() {
-        return ownInstance;
-    }
+//    //инициируем синглтон хендлера настроек
+//    private static final FileManager ownInstance = new FileManager();
+//
+//    public static FileManager getInstance() {
+//        return ownInstance;
+//    }
 
     /**
      * Метод создает в корневой папке приложения(где разворачивается jar-файл)
