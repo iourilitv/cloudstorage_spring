@@ -23,7 +23,12 @@ public class FileUtils {
     //принимаем объект обработчика операций с объектами элементов списков в GUI
     private ItemUtils itemUtils;
     //принимаем объект обработчика операций хэширования
-    private final HashUtils hashUtils = HashUtils.getInstance();
+//    private final HashUtils hashUtils = HashUtils.getInstance();
+    private HashUtils hashUtils;
+
+    public FileUtils(HashUtils hashUtils) {
+        this.hashUtils = hashUtils;
+    }
 
     //инициируем строковую переменную для вывода сообщений
     private String msg;

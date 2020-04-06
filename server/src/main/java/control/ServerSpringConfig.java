@@ -6,11 +6,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import utils.FileManager;
 import utils.FileUtils;
+import utils.HashUtils;
 import utils.ItemUtils;
 
 @Configuration
 @ComponentScan //по умолчанию директория корневая, но можно указать, например @ComponentScan("ru.folder")
 public class ServerSpringConfig {
+
+    @Bean
+    public HashUtils hashUtils() {
+        return new HashUtils();
+    }
 
     @Bean
     public FileManager fileManager() {
@@ -29,7 +35,7 @@ public class ServerSpringConfig {
 
     @Bean
     public FileUtils fileUtils() {
-        return new FileUtils();
+        return new FileUtils(hashUtils());
     }
 
     @Bean
