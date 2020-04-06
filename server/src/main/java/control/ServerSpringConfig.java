@@ -3,6 +3,7 @@ package control;
 import io.netty.channel.ChannelHandlerContext;
 import jdbc.MySQLConnect;
 import jdbc.UsersAuthController;
+import netty.NettyServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -66,10 +67,22 @@ public class ServerSpringConfig {
         return new ItemUtils();
     }
 
-    @Bean
+    @Bean //TODO разобраться с передачей объекта CloudStorageServer в объект NettyServer.
+    public NettyServer nettyServer() {
+        return new NettyServer();
+    }
+
+//    @Bean
+//    public CloudStorageServer cloudStorageServer() {
+//        return new CloudStorageServer(
+//                usersAuthController(), fileUtils(), itemUtils(),
+//                propertiesHandler());
+//    }
+    @Bean //TODO разобраться с передачей объекта CloudStorageServer в объект NettyServer.
     public CloudStorageServer cloudStorageServer() {
         return new CloudStorageServer(
-                usersAuthController(), fileUtils(), itemUtils(), propertiesHandler());
+                usersAuthController(), fileUtils(), itemUtils(),
+                propertiesHandler(), nettyServer());
     }
 
 }
