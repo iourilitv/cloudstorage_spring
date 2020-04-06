@@ -23,7 +23,6 @@ public class FileUtils {
     //принимаем объект обработчика операций с объектами элементов списков в GUI
     private ItemUtils itemUtils;
     //принимаем объект обработчика операций хэширования
-//    private final HashUtils hashUtils = HashUtils.getInstance();
     private HashUtils hashUtils;
 
     public FileUtils(HashUtils hashUtils) {

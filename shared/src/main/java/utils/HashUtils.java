@@ -10,12 +10,6 @@ import java.security.NoSuchAlgorithmException;
  * This class is responsible for operations with not secure hashing of files, byte arrays etc.
  */
 public class HashUtils {
-//    //инициируем объект класса
-//    private static final HashUtils ownInstance = new HashUtils();
-//
-//    public static HashUtils getInstance() {
-//        return ownInstance;
-//    }
 
     //инициируем контсанту названия алгоритма расчета контрольной суммы
     private final String algorithm = "SHA-512";
