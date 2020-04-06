@@ -13,6 +13,7 @@ import utils.HashUtils;
 import utils.ItemUtils;
 
 import java.sql.Connection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class ServerSpringConfig {
 
     @Bean
     public Map<String, ChannelHandlerContext> authorizedUsers() {
-        return new HashMap<>();
+        return Collections.synchronizedMap(new HashMap<>());
     }
 
     @Bean
