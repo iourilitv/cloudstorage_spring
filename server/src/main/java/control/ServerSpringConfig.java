@@ -1,5 +1,7 @@
 package control;
 
+import io.netty.channel.ChannelHandlerContext;
+import jdbc.MySQLConnect;
 import jdbc.UsersAuthController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,6 +11,10 @@ import utils.FileManager;
 import utils.FileUtils;
 import utils.HashUtils;
 import utils.ItemUtils;
+
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @ComponentScan //по умолчанию директория корневая, но можно указать, например @ComponentScan("ru.folder")
@@ -30,8 +36,18 @@ public class ServerSpringConfig {
     }
 
     @Bean
+    public Map<String, ChannelHandlerContext> authorizedUsers() {
+        return new HashMap<>();
+    }
+
+    @Bean
+    public Connection connection() {
+        return new MySQLConnect().connect();
+    }
+
+    @Bean
     public UsersAuthController usersAuthController() {
-        return new UsersAuthController(secureHasher());
+        return new UsersAuthController(secureHasher(), authorizedUsers(), connection());
     }
 
     @Bean

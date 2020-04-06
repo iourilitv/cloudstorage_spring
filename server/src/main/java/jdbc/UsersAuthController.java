@@ -28,12 +28,20 @@ public class UsersAuthController {
     //объявляем объект подготовленного запрос в БД
     private PreparedStatement preparedStatement;
 
-    public UsersAuthController(SecureHasher secureHasher) {
+//    public UsersAuthController(SecureHasher secureHasher) {
+//        this.secureHasher = secureHasher;
+//        //инициируем множество авторизованных клиентов
+//        authorizedUsers = new HashMap<>();
+//        //инициируем объект соединения с БД
+//        connection = new MySQLConnect().connect();
+//    }
+    public UsersAuthController(SecureHasher secureHasher,
+        Map<String, ChannelHandlerContext> authorizedUsers, Connection connection) {
         this.secureHasher = secureHasher;
         //инициируем множество авторизованных клиентов
-        authorizedUsers = new HashMap<>();
+        this.authorizedUsers = authorizedUsers;
         //инициируем объект соединения с БД
-        connection = new MySQLConnect().connect();
+        this.connection = connection;
     }
 
 //    /**
