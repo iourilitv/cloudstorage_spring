@@ -21,9 +21,7 @@ public class PropertiesHandler {
     private final Gson gson = new Gson();
     //объявляем объект текущих свойств приложения
     private Properties currentProperties;
-
     //инициируем объект менеджера для работы с файлами в jar-архиве
-//    private final FileManager fileManager = FileManager.getInstance();
     private FileManager fileManager;
 
     public PropertiesHandler(FileManager fileManager) {
