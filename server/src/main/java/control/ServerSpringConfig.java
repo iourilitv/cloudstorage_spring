@@ -22,44 +22,21 @@ import java.util.Map;
 @ComponentScan //по умолчанию директория корневая, но можно указать, например @ComponentScan("ru.folder")
 public class ServerSpringConfig {
 
-    //    @Bean
-//    public CloudStorageServer cloudStorageServer() {
-//        return new CloudStorageServer(
-//                usersAuthController(), fileUtils(), itemUtils(),
-//                propertiesHandler());
-//    }
-//    @Bean //TODO разобраться с передачей объекта CloudStorageServer в объект NettyServer.
-//    public CloudStorageServer cloudStorageServer() {
-//        return new CloudStorageServer(
-//                usersAuthController(), fileUtils(), itemUtils(),
-//                propertiesHandler(), nettyServer());
-//    }
-    @Bean //TODO разобраться с передачей объекта CloudStorageServer в объект NettyServer.
-    public CloudStorageServer cloudStorageServer(
-            UsersAuthController usersAuthController, FileUtils fileUtils,
-            ItemUtils itemUtils, PropertiesHandler propertiesHandler, NettyServer nettyServer) {
+    @Bean
+    public CloudStorageServer cloudStorageServer() {
         return new CloudStorageServer(
-                usersAuthController, fileUtils, itemUtils,
-                propertiesHandler, nettyServer);
+                usersAuthController(), fileUtils(), itemUtils(),
+                propertiesHandler(), nettyServer());
     }
 
-//    @Bean
-//    public UsersAuthController usersAuthController() {
-//        return new UsersAuthController(secureHasher(), authorizedUsers(), connection());
-//    }
     @Bean
-    public UsersAuthController usersAuthController(SecureHasher secureHasher,
-           Map<String, ChannelHandlerContext> authorizedUsers, Connection connection) {
-        return new UsersAuthController(secureHasher, authorizedUsers, connection);
+    public UsersAuthController usersAuthController() {
+        return new UsersAuthController(secureHasher(), authorizedUsers(), connection());
     }
 
-//    @Bean
-//    public FileUtils fileUtils() {
-//        return new FileUtils(hashUtils());
-//    }
     @Bean
-    public FileUtils fileUtils(HashUtils hashUtils) {
-        return new FileUtils(hashUtils);
+    public FileUtils fileUtils() {
+        return new FileUtils(hashUtils());
     }
 
     @Bean
@@ -68,17 +45,14 @@ public class ServerSpringConfig {
     }
 
     @Bean
-    public PropertiesHandler propertiesHandler(FileManager fileManager) {
-        return new PropertiesHandler(fileManager);
+    public PropertiesHandler propertiesHandler() {
+        return new PropertiesHandler(fileManager());
     }
 
-    @Bean //TODO разобраться с передачей объекта CloudStorageServer в объект NettyServer.
+    @Bean
     public NettyServer nettyServer() {
         return new NettyServer();
     }
-//    public NettyServer nettyServer(CloudStorageServer storageServer) {
-//        return new NettyServer(storageServer);
-//    }
 
     @Bean
     public SecureHasher secureHasher() {

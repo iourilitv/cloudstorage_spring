@@ -41,16 +41,6 @@ public class CloudStorageServer {
     //инициируем объект сетевого подключения
     private NettyServer nettyServer;
 
-//    @Autowired - не работает, т.к. в UsersAuthController перекрестно передается CloudStorageServer
-//    public CloudStorageServer(UsersAuthController usersAuthController,
-//                              FileUtils fileUtils, ItemUtils itemUtils,
-//                              PropertiesHandler propertiesHandler) {
-//        this.usersAuthController = usersAuthController;
-//        this.fileUtils = fileUtils;
-//        this.itemUtils = itemUtils;
-//        this.propertiesHandler = propertiesHandler;
-//    }
-    //TODO разобраться с передачей объекта CloudStorageServer в объект NettyServer.
     public CloudStorageServer(UsersAuthController usersAuthController,
                               FileUtils fileUtils, ItemUtils itemUtils,
                               PropertiesHandler propertiesHandler, NettyServer nettyServer) {
@@ -102,22 +92,14 @@ public class CloudStorageServer {
         printMsg("[server]CloudStorageServer.initConfiguration() - STORAGE_ROOT_PATH: " + STORAGE_ROOT_PATH);
     }
 
-//    /**
-//     * Метод запускает приложение сервера.
-//     */
-//    public void run() throws Exception {
-//        //инициируем объект директории по умолчанию в серверной части GUI
-//        storageDefaultDirItem = new Item(STORAGE_DEFAULT_DIR);
-//        //инициируем объект сетевого подключения
-//        new NettyServer(this, PORT).run();
-//    }
-    //TODO разобраться с передачей объекта CloudStorageServer в объект NettyServer.
+    /**
+     * Метод запускает приложение сервера.
+     */
     public void run() throws Exception {
         //инициируем объект директории по умолчанию в серверной части GUI
-        storageDefaultDirItem = new Item(STORAGE_DEFAULT_DIR);//TODO надо ли менять на Bean?
+        storageDefaultDirItem = new Item(STORAGE_DEFAULT_DIR);
         //инициируем объект сетевого подключения
         nettyServer.run(this, PORT);
-//        nettyServer.run(PORT);
     }
 
     /**
