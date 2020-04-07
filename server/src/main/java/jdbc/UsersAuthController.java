@@ -5,6 +5,7 @@ import messages.AuthMessage;
 import control.CloudStorageServer;
 import security.SecureHasher;
 
+import javax.sql.DataSource;
 import java.io.ByteArrayInputStream;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
@@ -14,7 +15,7 @@ import java.util.Map;
  * Класс для организации сервиса авторизации и связи с БД
  * Связь БД и приложения осуществляется через посредника, JDBC драйвер(библиотека).
  */
-public class UsersAuthController {
+public class UsersAuthController { //UserRepository
     //принимаем объект сервера
     private CloudStorageServer storageServer;
     //принимаем объект для операций шифрования
@@ -27,13 +28,22 @@ public class UsersAuthController {
     //объявляем объект подготовленного запрос в БД
     private PreparedStatement preparedStatement;
 
+//    public UsersAuthController(SecureHasher secureHasher,
+//        Map<String, ChannelHandlerContext> authorizedUsers, Connection connection) {
+//        this.secureHasher = secureHasher;
+//        //инициируем множество авторизованных клиентов
+//        this.authorizedUsers = authorizedUsers;
+//        //инициируем объект соединения с БД
+//        this.connection = connection;
+//    }
     public UsersAuthController(SecureHasher secureHasher,
-        Map<String, ChannelHandlerContext> authorizedUsers, Connection connection) {
+                               Map<String, ChannelHandlerContext> authorizedUsers,
+                               DataSource dataSource) throws SQLException {
         this.secureHasher = secureHasher;
         //инициируем множество авторизованных клиентов
         this.authorizedUsers = authorizedUsers;
         //инициируем объект соединения с БД
-        this.connection = connection;
+        this.connection = dataSource.getConnection();
     }
 
     /**

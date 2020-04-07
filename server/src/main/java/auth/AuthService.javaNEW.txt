@@ -1,0 +1,8 @@
+package auth;
+
+import persistence.User;
+
+public interface AuthService {
+
+    boolean authUser(User user);
+}

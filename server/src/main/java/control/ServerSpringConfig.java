@@ -1,37 +1,41 @@
 package control;
 
 import io.netty.channel.ChannelHandlerContext;
-import jdbc.MySQLConnect;
+//import jdbc.MySQLConnect;
 import jdbc.UsersAuthController;
 import netty.NettyServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import security.SecureHasher;
 import utils.FileManager;
 import utils.FileUtils;
 import utils.HashUtils;
 import utils.ItemUtils;
 
-import java.sql.Connection;
+import javax.sql.DataSource;
+//import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan //по умолчанию директория корневая, но можно указать, например @ComponentScan("ru.folder")
 public class ServerSpringConfig {
 
     @Bean
-    public CloudStorageServer cloudStorageServer() {
+    public CloudStorageServer cloudStorageServer() throws SQLException {
         return new CloudStorageServer(
                 usersAuthController(), fileUtils(), itemUtils(),
                 propertiesHandler(), nettyServer());
     }
 
     @Bean
-    public UsersAuthController usersAuthController() {
-        return new UsersAuthController(secureHasher(), authorizedUsers(), connection());
+    public UsersAuthController usersAuthController() throws SQLException {
+        return new UsersAuthController(secureHasher(), authorizedUsers(), dataSource());
     }
 
     @Bean
@@ -74,9 +78,41 @@ public class ServerSpringConfig {
         return Collections.synchronizedMap(new HashMap<>());
     }
 
+//    @Bean
+//    public Connection connection() {
+//        return new MySQLConnect().connect();
+//    }
+//    @Bean
+//    public Connection connection() throws SQLException {
+//        return dataSource().getConnection();
+//    }
+
+//    @Bean
+//    public DataSource dataSource(String jdbcUrl) {
+//        DriverManagerDataSource ds = new DriverManagerDataSource();
+//        ds.setUrl(jdbcUrl);
+//        ds.setUsername("root");
+//        ds.setPassword("mysql!1qwertY");
+//        ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//        return ds;
+//    }
     @Bean
-    public Connection connection() {
-        return new MySQLConnect().connect();
+    public DataSource dataSource() {
+        DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setUrl(jdbcUrl());
+        ds.setUsername("root");
+        ds.setPassword("mysql!1qwertY");
+        ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        Properties properties = ds.getConnectionProperties();
+        if(properties == null) {
+            properties = new Properties();
+            properties.setProperty("MaxPooledStatements", "250");
+        }
+        return ds;
     }
 
+    @Bean
+    public String jdbcUrl() {
+        return "jdbc:mysql://localhost:3306/cloudstoragedb?serverTimezone=Europe/Moscow";
+    }
 }

@@ -8,7 +8,7 @@ import java.util.Properties;
 /**
  * This class responds for database connection.
  */
-public class MySQLConnect {
+public class MySQLConnect2 {
     //инициируем константы драйвера и ссылки пути к БД
     private static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/cloudstoragedb?serverTimezone=Europe/Moscow";
