@@ -28,14 +28,6 @@ public class UsersAuthController { //UserRepository
     //объявляем объект подготовленного запрос в БД
     private PreparedStatement preparedStatement;
 
-//    public UsersAuthController(SecureHasher secureHasher,
-//        Map<String, ChannelHandlerContext> authorizedUsers, Connection connection) {
-//        this.secureHasher = secureHasher;
-//        //инициируем множество авторизованных клиентов
-//        this.authorizedUsers = authorizedUsers;
-//        //инициируем объект соединения с БД
-//        this.connection = connection;
-//    }
     public UsersAuthController(SecureHasher secureHasher,
                                Map<String, ChannelHandlerContext> authorizedUsers,
                                DataSource dataSource) throws SQLException {

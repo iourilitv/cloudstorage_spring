@@ -1,7 +1,6 @@
 package control;
 
 import io.netty.channel.ChannelHandlerContext;
-//import jdbc.MySQLConnect;
 import jdbc.UsersAuthController;
 import netty.NettyServer;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +14,6 @@ import utils.HashUtils;
 import utils.ItemUtils;
 
 import javax.sql.DataSource;
-//import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -78,24 +76,6 @@ public class ServerSpringConfig {
         return Collections.synchronizedMap(new HashMap<>());
     }
 
-//    @Bean
-//    public Connection connection() {
-//        return new MySQLConnect().connect();
-//    }
-//    @Bean
-//    public Connection connection() throws SQLException {
-//        return dataSource().getConnection();
-//    }
-
-//    @Bean
-//    public DataSource dataSource(String jdbcUrl) {
-//        DriverManagerDataSource ds = new DriverManagerDataSource();
-//        ds.setUrl(jdbcUrl);
-//        ds.setUsername("root");
-//        ds.setPassword("mysql!1qwertY");
-//        ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//        return ds;
-//    }
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
