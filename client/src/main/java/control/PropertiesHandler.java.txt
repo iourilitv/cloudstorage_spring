@@ -5,7 +5,9 @@ import utils.FileManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,13 +15,13 @@ import java.util.stream.Collectors;
 /**
  * This client's class responds for operations with client app's properties.
  */
-public class PropertiesHandler {
-//    //инициируем синглтон хендлера настроек
-//    private static final PropertiesHandler ownObject = new PropertiesHandler();
-//
-//    public static PropertiesHandler getOwnObject() {
-//        return ownObject;
-//    }
+public class PropertiesHandler2 {
+    //инициируем синглтон хендлера настроек
+    private static final PropertiesHandler2 ownObject = new PropertiesHandler2();
+
+    public static PropertiesHandler2 getOwnObject() {
+        return ownObject;
+    }
 
     //инициируем переменную для печати сообщений в консоль
     private final PrintStream log = System.out;
@@ -28,12 +30,7 @@ public class PropertiesHandler {
     //инициируем коллекцию текущих настроек приложения
     private List<String> currentProperties = new ArrayList<>();
     //инициируем объект менеджера для работы с файлами в jar-архиве
-//    private final FileManager fileManager = FileManager.getInstance();
-    private FileManager fileManager;
-
-    public PropertiesHandler(FileManager fileManager) {
-        this.fileManager = fileManager;
-    }
+    private final FileManager fileManager = FileManager.getInstance();
 
     /**
      * Метод первом запуске приложения создает копию конфигурационного файла и файла readme.

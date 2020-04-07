@@ -12,12 +12,14 @@ import utils.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * This client's class is responsible for operation with storage by communication with command handlers.
  */
-public class CloudStorageClient {
+public class CloudStorageClient2 {
     //инициируем переменную для печати сообщений в консоль
     private final PrintStream log = System.out;
     //принимаем объект хендлера для операций с директориями
@@ -30,88 +32,22 @@ public class CloudStorageClient {
     private static int PORT;
     //объявляем переменную объект пути к корневой директории для списка в клиентской части GUI
     public static Path CLIENT_ROOT_PATH;
-
     //объявляем объект файлового обработчика
-//    private FileUtils fileUtils = FileUtils.getInstance();
-    private FileUtils fileUtils;
+    private FileUtils fileUtils = FileUtils.getInstance();
     //принимаем объект обработчика операций с объектами элементов списков в GUI
-//    private final ItemUtils itemUtils = ItemUtils.getInstance();
-    private ItemUtils itemUtils;
-
+    private final ItemUtils itemUtils = ItemUtils.getInstance();
     //инициируем объект хендлера настроек приложения
-//    private final PropertiesHandler propertiesHandler = PropertiesHandler.getOwnObject();
-    private PropertiesHandler propertiesHandler;
+    private final PropertiesHandler propertiesHandler = PropertiesHandler.getOwnObject();
 
-//    public CloudStorageClient(GUIController guiController) {
-//        //принимаем объект контроллера GUI
-//        this.guiController = guiController;
-//    }
-
-    public CloudStorageClient(FileUtils fileUtils, ItemUtils itemUtils,
-                              PropertiesHandler propertiesHandler) {
-        this.fileUtils = fileUtils;
-        this.itemUtils = itemUtils;
-        this.propertiesHandler = propertiesHandler;
-    }
-
-
-//    /**
-//     * Метод инициирует процесс настройки серверного приложения.
-//     */
-//    public void initConfiguration() {
-//        //запускаем процесс применения конфигурации приложения
-//        propertiesHandler.setConfiguration();
-//        //инициируем переменную IP адреса сервера
-//        String ip_addr = propertiesHandler.getProperty("IP_ADDR");
-//        //если пользователем задано другое значение IP адреса
-//        if(!ip_addr.isEmpty()){
-//            //применяем значение пользователя
-//            IP_ADDR = ip_addr;
-//        } else {
-//            //в противном случае применяем дефорлтное значение IP адреса
-//            IP_ADDR = propertiesHandler.getProperty("IP_ADDR_DEFAULT");
-//        }
-//        //выводим в лог значение ip-адреса сервера
-//        writeToLog("CloudStorageClient.initConfiguration() - IP_ADDR: " + IP_ADDR);
-//
-//        //инициируем переменную порта соединения
-//        String port = propertiesHandler.getProperty("PORT");
-//        //если пользователем задано другое значение порта
-//        if(!port.isEmpty()){
-//            //применяем значение пользователя
-//            PORT = Integer.parseInt(port);
-//        } else {
-//            //в противном случае применяем дефорлтное значение порта
-//            PORT = Integer.parseInt(propertiesHandler.getProperty("PORT_DEFAULT"));
-//        }
-//        //выводим в лог значение порта сервера
-//        writeToLog("CloudStorageClient.initConfiguration() - PORT: " + PORT);
-//
-//        //инициируем переменную объект пути к корневой директории для списка в клиентской части GUI
-//        String root_absolute = propertiesHandler.getProperty("Root_absolute");
-//        //если поле свойства не пустое и путь реально существует(например, usb-флешка вставлена)
-//        if(!root_absolute.isEmpty() && Files.exists(Paths.get(root_absolute))){
-//            //применяем значение пользователя
-//            CLIENT_ROOT_PATH = Paths.get(root_absolute);
-//        } else {
-//            //в противном случае применяем дефорлтное значение пути к корневой директории
-//            CLIENT_ROOT_PATH = Paths.get(propertiesHandler.getProperty("Root_default"));
-//
-//            try {
-//                //создаем новую клиентскую директорию, если еще не создана
-//                Files.createDirectory(CLIENT_ROOT_PATH);
-//            } catch (IOException e) {
-//                writeToLog("[client]CloudStorageClient.initConfiguration() - " +
-//                        "Something wrong with new client root directory creating. Probably it does already exist!");
-//            }
-//        }
-//        //выводим в лог значение корневой директории клиента
-//        writeToLog("CloudStorageClient.initConfiguration() - CLIENT_ROOT_PATH: " + CLIENT_ROOT_PATH);
-//    }
-    public void initConfiguration(GUIController guiController) {
+    public CloudStorageClient2(GUIController guiController) {
         //принимаем объект контроллера GUI
         this.guiController = guiController;
+    }
 
+    /**
+     * Метод инициирует процесс настройки серверного приложения.
+     */
+    public void initConfiguration() {
         //запускаем процесс применения конфигурации приложения
         propertiesHandler.setConfiguration();
         //инициируем переменную IP адреса сервера

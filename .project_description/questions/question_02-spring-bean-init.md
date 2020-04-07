@@ -15,7 +15,7 @@
              usersAuthController(), fileUtils(), itemUtils(), propertiesHandler());
   }
  
-####Variant-2.
+###Variant-2.
  На основании уроков Преподавателя GB: Алексея Ушаровского
   @Bean
   public CloudStorageServer cloudStorageServer(
@@ -24,3 +24,18 @@
      return new CloudStorageServer(
             usersAuthController, fileUtils, itemUtils, propertiesHandler);
   }
+  
+  @Bean
+  public DataSource dataSource(String jdbcUrl) {
+      DriverManagerDataSource ds = new DriverManagerDataSource();
+      ds.setUrl(jdbcUrl);
+      ds.setUsername("root");
+      ds.setPassword("root");
+      ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+      return ds;
+  }
+  
+##Выводы.
+Оба варинта можно применять.
+Вариант 1 - проще код.
+Вариант 2 позволяет применить параметр внутри метода. 

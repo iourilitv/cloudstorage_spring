@@ -1,3 +1,4 @@
+import control.SpringFXMLLoader;
 import javafx.GUIController;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -10,25 +11,20 @@ import javafx.stage.Stage;
  * The main class of client cloudStorage applet.
  */
 public class ClientMain extends Application {
+//    Источники способа подключения JavaFX и Spring:
+//    1. https://habr.com/ru/post/203960/ Не работает.
+//    2. https://habr.com/ru/post/348850/ Попробовать
 
-    //создаем экземпляр контроллера
-    GUIController contr;
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //чтобы получить доступ к контроллеру
-        //лоадер вынесли отдельно, чтобы с ним удобнее было работать
-        FXMLLoader loader = new FXMLLoader();
-        //с помощью метода getResourceAsStream извлекаем данные из лоадера, чтобы
-        //вызвать метод getController для получения контроллера
-        Parent root = loader.load(getClass().getResourceAsStream("/MainClient.fxml"));
-        contr = loader.getController();
+        GUIController controller = (GUIController) SpringFXMLLoader.load("/MainClient.fxml");
 
-        //определяем действия по событию закрыть окно по крестику через лямбда
-        //лямбда здесь - это замена анонимного класса типа new Runnable
-        //в лямбда event - аргумент(здесь некое событие), {тело лямбды - операции}
         primaryStage.setOnCloseRequest(event -> {
-            contr.dispose();//dispose - располагать, размещать
+            controller.dispose();//dispose - располагать, размещать
             //сворачиваем окно
             Platform.exit();
             //указываем системе, что выход без ошибки
@@ -36,7 +32,7 @@ public class ClientMain extends Application {
         });
 
         primaryStage.setTitle("The Cloud Storage by LYS");
-        Scene scene = new Scene(root, 1024, 600);
+        Scene scene = new Scene((Parent) controller.getView(), 1024, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
