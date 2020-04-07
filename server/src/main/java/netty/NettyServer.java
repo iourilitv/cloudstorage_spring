@@ -23,9 +23,14 @@ public class NettyServer {
 //        this.storageServer = storageServer;
 //        this.port = port;
 //    }
+//    public NettyServer(CloudStorageServer storageServer) {
+//        this.storageServer = storageServer;
+//    }
 
+    public NettyServer() {
+    }
 
-//    public void run() throws Exception {
+    //    public void run() throws Exception {
 //        //инициируем пул потоков для приема входящих подключений
 //        EventLoopGroup mainGroup = new NioEventLoopGroup();
 //        //инициируем пул потоков для обработки потоков данных
@@ -74,6 +79,7 @@ public class NettyServer {
 //    }
     //TODO разобраться с передачей объекта CloudStorageServer в объект NettyServer.
     public void run(CloudStorageServer storageServer, int port) throws Exception {
+//    public void run(int port) throws Exception {
         this.storageServer = storageServer;
 
         //инициируем пул потоков для приема входящих подключений

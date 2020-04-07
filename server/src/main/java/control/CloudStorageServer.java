@@ -117,6 +117,7 @@ public class CloudStorageServer {
         storageDefaultDirItem = new Item(STORAGE_DEFAULT_DIR);//TODO надо ли менять на Bean?
         //инициируем объект сетевого подключения
         nettyServer.run(this, PORT);
+//        nettyServer.run(PORT);
     }
 
     /**

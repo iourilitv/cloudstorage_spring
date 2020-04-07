@@ -11,8 +11,9 @@ public class ServerMain {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(ServerSpringConfig.class);
 
-        CloudStorageServer css = context.getBean("cloudStorageServer",
-                CloudStorageServer.class);
+//        CloudStorageServer css = context.getBean("cloudStorageServer",
+//                CloudStorageServer.class);
+        CloudStorageServer css = context.getBean(CloudStorageServer.class);
         css.initConfiguration();
         css.run();
     }
