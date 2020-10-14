@@ -63,6 +63,7 @@ public class FileMessage extends AbstractMessage {
 
     /**
      * Метод заполняет массив байтами, считанными из файла
+     *
      * @param itemPathname - строка имени пути к объекту
      * @throws IOException - исключение ввода вывода
      */

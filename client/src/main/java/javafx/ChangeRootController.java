@@ -21,17 +21,18 @@ public class ChangeRootController {
 
     /**
      * Метод обрабатывает клик мыши по кнопке "Confirm" в диалоговом окне ввода нового имени
+     *
      * @param actionEvent - клик мыши по кнопке "Confirm"
      */
     @FXML
     public void saveNewPathname(ActionEvent actionEvent) {
         //если введенное новое имя корректно
-        if(isNewPathnameCorrect(newPathname.getText())){
+        if (isNewPathnameCorrect(newPathname.getText())) {
             //записываем новое имя в соответствующую переменную главного контроллера
             backController.setNewRootPathname(newPathname.getText());
             //закрываем модальное окно
             globParent.getScene().getWindow().hide();
-        //если введен неприемлемый путь
+            //если введен неприемлемый путь
         } else {
             //показываем модальное окно с предупреждением
             Alert alert = new Alert(Alert.AlertType.WARNING,
@@ -42,10 +43,11 @@ public class ChangeRootController {
 
     /**
      * Метод проверяет правильность введенной строки абсолютного пути к новой директории.
+     *
      * @param newPathname - строка абсолютного пути к новой директории
      * @return - результат проверки
      */
-    private boolean isNewPathnameCorrect(String newPathname){
+    private boolean isNewPathnameCorrect(String newPathname) {
         return !newPathname.trim().isEmpty();
     }
 

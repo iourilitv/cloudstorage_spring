@@ -31,7 +31,7 @@ public class Item implements Serializable {
         this.parentPathname = parentPathname;
         this.isDirectory = isDirectory;
         //если это директория
-        if(isDirectory) {
+        if (isDirectory) {
             this.itemSize = -1L;
         }
         this.isDefaultDirectory = false;

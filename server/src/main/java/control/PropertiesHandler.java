@@ -47,7 +47,7 @@ public class PropertiesHandler {
                 Files.write(toCfgFilePath, jsonString.getBytes(), StandardOpenOption.CREATE);
             }
             // читаем в json-строку данные из json-файла
-            String fromJsonString =  Files.lines(toCfgFilePath).collect(Collectors.joining());
+            String fromJsonString = Files.lines(toCfgFilePath).collect(Collectors.joining());
             // десериализуем в json-строку файл
             currentProperties = gson.fromJson(fromJsonString, Properties.class);
             //выводим в лог конфигурацию настроек приложения
@@ -63,6 +63,7 @@ public class PropertiesHandler {
 
     /**
      * Метод выводит в лог конфигурацию настроек приложения.
+     *
      * @param properties - объект настроек приложения
      */
     private void printConfiguration(Properties properties) {

@@ -16,8 +16,9 @@ public class NettyServer {
 
     /**
      * Метод запускает процесс инициализации канала подключения на netty.
+     *
      * @param storageServer - объект контроллера сетевого хранилища
-     * @param port - порт сервера
+     * @param port          - порт сервера
      */
     public void run(CloudStorageServer storageServer, int port) throws Exception {
         this.storageServer = storageServer;
@@ -73,7 +74,7 @@ public class NettyServer {
         printMsg("Server running...");
     }
 
-    public void printMsg(String msg){
+    public void printMsg(String msg) {
         storageServer.printMsg(msg);
     }
 }

@@ -14,168 +14,192 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="center" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.GUIController">
+<VBox alignment="center" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="javafx.GUIController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="Menu">
             <MenuItem mnemonicParsing="false" onAction="#onAboutMenuItemClick" text="About"/>
             <MenuItem mnemonicParsing="false" onAction="#onChangeClientRootMenuItemClick" text="Change Client Root"/>
-            <MenuItem fx:id="changePasswordMenuItem" mnemonicParsing="false" disable="true" onAction="#onChangePasswordMenuItemClick" text="ChangePassword"/>
-            <MenuItem fx:id="connectDisconnectMenuItem" mnemonicParsing="false" onAction="#onConnectToCloudStorageButtonClick" text="Connect"/>
+            <MenuItem fx:id="changePasswordMenuItem" mnemonicParsing="false" disable="true"
+                      onAction="#onChangePasswordMenuItemClick" text="ChangePassword"/>
+            <MenuItem fx:id="connectDisconnectMenuItem" mnemonicParsing="false"
+                      onAction="#onConnectToCloudStorageButtonClick" text="Connect"/>
         </Menu>
     </MenuBar>
     <HBox VBox.vgrow="ALWAYS">
         <!-- ***** Client Side ***** -->
         <VBox spacing="2.0" HBox.hgrow="ALWAYS">
-            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" text="Client Side" textAlignment="JUSTIFY" wrapText="true">
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" text="Client Side"
+                   textAlignment="JUSTIFY" wrapText="true">
                 <padding>
-                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                 </padding>
                 <VBox.margin>
-                    <Insets left="2.0" right="2.0" />
-                </VBox.margin>
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font>
-            </Label>
-            <HBox spacing="2.0">
-                <Button fx:id="clientHomeButton" onMouseClicked="#onClientHomeBtnClicked" text="Home" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                    <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0">
-                            <Image url="images/home-icon-24x24.png" />
-                        </ImageView>
-                    </graphic>
-                <padding>
-                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                </padding>
-                </Button>
-                <Button fx:id="clientGoUpButton" onMouseClicked="#onClientGoUpBtnClicked" text="GoUp" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                   <graphic>
-                       <ImageView fitHeight="22.0" fitWidth="22.0">
-                           <Image url="images/red-go-up-md-22x22.png" />
-                       </ImageView>
-                   </graphic>
-                   <padding>
-                      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                   </padding>
-                </Button>
-                <Button fx:id="clientRefreshButton" onMouseClicked="#onClientRefreshBtnClicked" text="Refresh" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                    <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0">
-                            <Image url="images/storage-el-folder-empty-22x17.png" />
-                        </ImageView>
-                    </graphic>
-                    <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="clientNewFolderButton" onMouseClicked="#onClientNewFolderBtnClicked" text="NewFolder" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                   <graphic>
-                       <ImageView fitHeight="22.0" fitWidth="22.0">
-                           <Image url="images/storage-el-folder-empty-22x17.png" />
-                       </ImageView>
-                   </graphic>
-                   <padding>
-                      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                   </padding>
-                </Button>
-            <VBox.margin>
-               <Insets left="2.0" right="2.0" top="2.0" />
-            </VBox.margin>
-            </HBox>
-            <Label fx:id="clientDirLabel" maxWidth="Infinity" prefWidth="220.0" style="-fx-background-color: #48d1cc;" text=".../" textAlignment="JUSTIFY" wrapText="true">
-            <padding>
-               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-            </padding>
-            <VBox.margin>
-               <Insets left="2.0" right="2.0" />
-            </VBox.margin>
-             </Label>
-            <ListView fx:id="clientItemListView" onMouseClicked="#onClientListViewMouseClickAction" maxHeight="Infinity" VBox.vgrow="ALWAYS">
-            <VBox.margin>
-               <Insets bottom="2.0" left="2.0" right="2.0" />
-            </VBox.margin></ListView>
-        </VBox>
-        <!-- ***** Cloud Storage Side***** -->
-        <VBox spacing="2.0" HBox.hgrow="ALWAYS">
-            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" text="Cloud Storage Side" textAlignment="JUSTIFY" wrapText="true">
-                <padding>
-                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                </padding>
-                <VBox.margin>
-                    <Insets left="2.0" right="2.0" />
+                    <Insets left="2.0" right="2.0"/>
                 </VBox.margin>
                 <font>
-                    <Font name="System Bold" size="14.0" />
+                    <Font name="System Bold" size="14.0"/>
                 </font>
             </Label>
             <HBox spacing="2.0">
-                <Button fx:id="storageHomeButton" disable="true" onMouseClicked="#onStorageHomeBtnClicked" text="Home" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <Button fx:id="clientHomeButton" onMouseClicked="#onClientHomeBtnClicked" text="Home"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS">
                     <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0">
-                            <Image url="images/home-icon-24x24.png" />
+                            <Image url="images/home-icon-24x24.png"/>
                         </ImageView>
                     </graphic>
                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                     </padding>
                 </Button>
-                <Button fx:id="storageGoUpButton" disable="true" onMouseClicked="#onStorageGoUpBtnClicked" text="GoUp" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <Button fx:id="clientGoUpButton" onMouseClicked="#onClientGoUpBtnClicked" text="GoUp"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS">
                     <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0">
-                            <Image url="images/red-go-up-md-22x22.png" />
+                            <Image url="images/red-go-up-md-22x22.png"/>
                         </ImageView>
                     </graphic>
                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                     </padding>
                 </Button>
-                <Button fx:id="storageRefreshButton" disable="true" onMouseClicked="#onStorageRefreshBtnClicked" text="Refresh" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                    <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0">
-                            <Image url="images/storage-el-folder-empty-22x17.png" />
-                        </ImageView>
-                    </graphic>
-                    <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="storageNewFolderButton" disable="true" onMouseClicked="#onStorageNewFolderBtnClicked" text="NewFolder" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <Button fx:id="clientRefreshButton" onMouseClicked="#onClientRefreshBtnClicked" text="Refresh"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS">
                     <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0">
                             <Image url="images/storage-el-folder-empty-22x17.png"/>
                         </ImageView>
                     </graphic>
                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                    </padding>
+                </Button>
+                <Button fx:id="clientNewFolderButton" onMouseClicked="#onClientNewFolderBtnClicked" text="NewFolder"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                            <Image url="images/storage-el-folder-empty-22x17.png"/>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                     </padding>
                 </Button>
                 <VBox.margin>
-                    <Insets left="2.0" right="2.0" top="2.0" />
+                    <Insets left="2.0" right="2.0" top="2.0"/>
                 </VBox.margin>
             </HBox>
-            <Label fx:id="storageDirLabel" maxWidth="Infinity" prefWidth="220.0" style="-fx-background-color: #48d1cc;" text=".../" textAlignment="JUSTIFY" wrapText="true">
+            <Label fx:id="clientDirLabel" maxWidth="Infinity" prefWidth="220.0" style="-fx-background-color: #48d1cc;"
+                   text=".../" textAlignment="JUSTIFY" wrapText="true">
                 <padding>
-                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                 </padding>
                 <VBox.margin>
-                    <Insets left="2.0" right="2.0" />
+                    <Insets left="2.0" right="2.0"/>
                 </VBox.margin>
             </Label>
-            <ListView fx:id="storageItemListView" onMouseClicked="#onStorageListViewMouseClickAction" managed="false" visible="false" maxHeight="Infinity" VBox.vgrow="ALWAYS">
+            <ListView fx:id="clientItemListView" onMouseClicked="#onClientListViewMouseClickAction" maxHeight="Infinity"
+                      VBox.vgrow="ALWAYS">
                 <VBox.margin>
-                    <Insets bottom="2.0" left="2.0" right="2.0" />
-                </VBox.margin></ListView>
-            <StackPane fx:id="connectToCloudStorageStackPane" style="-fx-background-image: url(images/wall.png);" maxHeight="Infinity" VBox.vgrow="ALWAYS">
-                <Button fx:id="connectToCloudStorageButton" defaultButton="true" onAction="#onConnectToCloudStorageButtonClick" prefHeight="26.0" prefWidth="180.0" text="Connect to the Cloud Storage">
+                    <Insets bottom="2.0" left="2.0" right="2.0"/>
+                </VBox.margin>
+            </ListView>
+        </VBox>
+        <!-- ***** Cloud Storage Side***** -->
+        <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" text="Cloud Storage Side"
+                   textAlignment="JUSTIFY" wrapText="true">
+                <padding>
+                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                </padding>
+                <VBox.margin>
+                    <Insets left="2.0" right="2.0"/>
+                </VBox.margin>
+                <font>
+                    <Font name="System Bold" size="14.0"/>
+                </font>
+            </Label>
+            <HBox spacing="2.0">
+                <Button fx:id="storageHomeButton" disable="true" onMouseClicked="#onStorageHomeBtnClicked" text="Home"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                            <Image url="images/home-icon-24x24.png"/>
+                        </ImageView>
+                    </graphic>
                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                    </padding>
+                </Button>
+                <Button fx:id="storageGoUpButton" disable="true" onMouseClicked="#onStorageGoUpBtnClicked" text="GoUp"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                            <Image url="images/red-go-up-md-22x22.png"/>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                    </padding>
+                </Button>
+                <Button fx:id="storageRefreshButton" disable="true" onMouseClicked="#onStorageRefreshBtnClicked"
+                        text="Refresh" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                            <Image url="images/storage-el-folder-empty-22x17.png"/>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                    </padding>
+                </Button>
+                <Button fx:id="storageNewFolderButton" disable="true" onMouseClicked="#onStorageNewFolderBtnClicked"
+                        text="NewFolder" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                            <Image url="images/storage-el-folder-empty-22x17.png"/>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                    </padding>
+                </Button>
+                <VBox.margin>
+                    <Insets left="2.0" right="2.0" top="2.0"/>
+                </VBox.margin>
+            </HBox>
+            <Label fx:id="storageDirLabel" maxWidth="Infinity" prefWidth="220.0" style="-fx-background-color: #48d1cc;"
+                   text=".../" textAlignment="JUSTIFY" wrapText="true">
+                <padding>
+                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                </padding>
+                <VBox.margin>
+                    <Insets left="2.0" right="2.0"/>
+                </VBox.margin>
+            </Label>
+            <ListView fx:id="storageItemListView" onMouseClicked="#onStorageListViewMouseClickAction" managed="false"
+                      visible="false" maxHeight="Infinity" VBox.vgrow="ALWAYS">
+                <VBox.margin>
+                    <Insets bottom="2.0" left="2.0" right="2.0"/>
+                </VBox.margin>
+            </ListView>
+            <StackPane fx:id="connectToCloudStorageStackPane" style="-fx-background-image: url(images/wall.png);"
+                       maxHeight="Infinity" VBox.vgrow="ALWAYS">
+                <Button fx:id="connectToCloudStorageButton" defaultButton="true"
+                        onAction="#onConnectToCloudStorageButtonClick" prefHeight="26.0" prefWidth="180.0"
+                        text="Connect to the Cloud Storage">
+                    <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                     </padding>
                 </Button>
             </StackPane>
         </VBox>
     </HBox>
-    <Label fx:id="noticeLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" style="-fx-background-color: #FFF;" textAlignment="CENTER">
+    <Label fx:id="noticeLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity"
+           style="-fx-background-color: #FFF;" textAlignment="CENTER">
         <font>
-            <Font size="18.0" />
-        </font></Label>
+            <Font size="18.0"/>
+        </font>
+    </Label>
 </VBox>

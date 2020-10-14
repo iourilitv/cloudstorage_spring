@@ -27,7 +27,7 @@ public class SecureHasher {
     //объявляем объект SecretKeyFactory
     private SecretKeyFactory keyFactory;
 
-    public SecureHasher(){
+    public SecureHasher() {
         try {
             //инициируем объект SecretKeyFactory
             keyFactory = SecretKeyFactory.getInstance(secureAlgorithm);
@@ -38,6 +38,7 @@ public class SecureHasher {
 
     /**
      * Метод генерирует "соль" - случайный байтовый массив размером capacity.
+     *
      * @return - случайный байтовый массив
      */
     public byte[] generateSalt() {
@@ -50,6 +51,7 @@ public class SecureHasher {
 
     /**
      * Метод генерирует безопасный хэш с "солью" для заданной строки(например, пароля).
+     *
      * @param word - заданная строка(например, пароль)
      * @param salt - байтовый массив со случайный набором байт
      * @return - байтовый ммассив - безопасный хэш с "солью"
@@ -63,12 +65,13 @@ public class SecureHasher {
 
     /**
      * Метод сравнивает заданную строку с заданным безопасным хэшем.
+     *
      * @param word - заданная строка(например, пароль)
      * @param hash - заданный байтовый ммассив - безопасный хэш с "солью"
      * @param salt - заданный байтовый массив - "соль"
      * @return - результат сравнения
      */
-    public boolean compareSecureHashes(String word, byte[] hash, byte[] salt)throws InvalidKeySpecException {
+    public boolean compareSecureHashes(String word, byte[] hash, byte[] salt) throws InvalidKeySpecException {
         //инициируем объект спецификации ключа
         KeySpec keySpec = new PBEKeySpec(word.toCharArray(), salt, iterationCount, keyLength);
         //инициируем и наполняем контрольный байтовый массив

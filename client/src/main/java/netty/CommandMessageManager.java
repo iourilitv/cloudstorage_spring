@@ -34,7 +34,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelActive(ChannelHandlerContext ctx){
+    public void channelActive(ChannelHandlerContext ctx) {
         //принимаем объект соединения
         this.ctx = ctx;
         //передаем объект соединения в объект клиента сетевого хранилища
@@ -44,7 +44,8 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод отрабатываем событие получение объекта сообщения.
      * Преобразует объект сообщения в объект соманды и запускает его обработку.
-     * @param ctx - объект сетевого соединения
+     *
+     * @param ctx       - объект сетевого соединения
      * @param msgObject - объект сообщения
      */
     @Override
@@ -59,14 +60,14 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
 
             //распознаем и обрабатываем полученный объект сообщения(команды)
             recognizeAndArrangeMessageObject(commandMessage);
-        }
-        finally {
+        } finally {
             ReferenceCountUtil.release(msgObject);
         }
     }
 
     /**
      * Метод распознает тип команды и обрабатывает ее.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     public void recognizeAndArrangeMessageObject(CommandMessage commandMessage) {
@@ -112,18 +113,18 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
             //обрабатываем полученный ответ сервера с массивом файловых объектов в заданной
             // директории пользователя в сетевом хранилище, если нет ошибок
             case SERVER_RESPONSE_ITEMS_LIST_OK:
-            //обрабатываем полученное от сервера подтверждение успешного создания новой папки
-            //с массивом файловых объектов в текущей директории пользователя в облачном хранилище
+                //обрабатываем полученное от сервера подтверждение успешного создания новой папки
+                //с массивом файловых объектов в текущей директории пользователя в облачном хранилище
             case SERVER_RESPONSE_CREATE_NEW_FOLDER_OK:
-            //обрабатываем полученное от сервера подтверждение успешной загрузки(сохранении)
-            // файла в облачное хранилище
+                //обрабатываем полученное от сервера подтверждение успешной загрузки(сохранении)
+                // файла в облачное хранилище
             case SERVER_RESPONSE_UPLOAD_ITEM_OK:
-            //обрабатываем полученное от сервера подтверждение успешной загрузки(сохранении)
-            // всего большого файла(по фрагментно) в облачное хранилище
+                //обрабатываем полученное от сервера подтверждение успешной загрузки(сохранении)
+                // всего большого файла(по фрагментно) в облачное хранилище
             case SERVER_RESPONSE_UPLOAD_FILE_FRAGS_OK:
-            //обрабатываем полученный от сервера ответ об успешном переименовании файла или папки в облачном хранилище
+                //обрабатываем полученный от сервера ответ об успешном переименовании файла или папки в облачном хранилище
             case SERVER_RESPONSE_RENAME_ITEM_OK:
-            //обрабатываем полученный от сервера ответ об успешном удалении файла или папки в облачном хранилище
+                //обрабатываем полученный от сервера ответ об успешном удалении файла или папки в облачном хранилище
             case SERVER_RESPONSE_DELETE_ITEM_OK:
                 //выводим в GUI список файлов и папок в корневой пользовательской директории в сетевом хранилище
                 updateStorageItemListInGUI(commandMessage);
@@ -183,6 +184,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
 
     /**
      * Метод обрабатывает полученное от сервера подтверждение успешного подключения клиента
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onServerConnectedResponse(CommandMessage commandMessage) {
@@ -194,6 +196,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
 
     /**
      * Метод обрабатывает полученное от сервера подтверждение готовности отключения клиента.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onServerDisconnectOKServerResponse(CommandMessage commandMessage) {
@@ -208,6 +211,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
 
     /**
      * Метод обрабатывает полученное от сервера сообщение об ошибке при попытке отключения клиента.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onServerDisconnectErrorServerResponse(CommandMessage commandMessage) {
@@ -217,6 +221,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод обрабатывает полученное от сервера подтверждение успешной регистрации
      * нового пользователя в облачное хранилище.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onRegistrationOKServerResponse(CommandMessage commandMessage) {
@@ -229,6 +234,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод обрабатывает полученное от сервера сообщение об ошибке регистрации
      * нового пользователя в облачное хранилище.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onRegistrationErrorServerResponse(CommandMessage commandMessage) {
@@ -238,6 +244,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
 
     /**
      * Метод обрабатывает полученное от сервера подтверждение успешной авторизации в облачное хранилище
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onAuthOKServerResponse(CommandMessage commandMessage) {
@@ -249,6 +256,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
 
     /**
      * Метод обрабатывает полученное от сервера сообщение об ошибке авторизации в облачное хранилище
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onAuthErrorServerResponse(CommandMessage commandMessage) {
@@ -259,6 +267,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод обрабатывает полученное от сервера подтверждение успешного
      * изменения пароля пользователя в облачное хранилище.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onChangePasswordServerResponse(CommandMessage commandMessage) {
@@ -270,6 +279,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
 
     /**
      * Метод обрабатывает полученное от сервера сообщение об ошибке изменения пароля пользователя в облачное хранилище
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onChangePasswordErrorServerResponse(CommandMessage commandMessage) {
@@ -280,6 +290,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод обрабатывает полученное от сервера сообщение об ошибке при создании новой папки
      * в текущей директории пользователя в облачном хранилище.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onCreateNewFolderErrorServerResponse(CommandMessage commandMessage) {
@@ -290,6 +301,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод обрабатывает полученное от сервера сообщение об ошибке загрузки(сохранения)
      * объекта элемента(файла) в облачное хранилище
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onUploadItemErrorServerResponse(CommandMessage commandMessage) {
@@ -300,6 +312,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод обрабатывает полученное от сервера подтверждение
      * успешной загрузки(сохранении) фрагмента файла в облачное хранилище.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onUploadFileFragOkServerResponse(CommandMessage commandMessage) {
@@ -316,7 +329,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
         //сбрасываем защелку в цикле отправки фрагментов
         fileUtils.getCountDownLatch().countDown();
         //если это финальный фрагмент
-        if(fileFragMsg.getCurrentFragNumber() == fileFragMsg.getTotalFragsNumber()){
+        if (fileFragMsg.getCurrentFragNumber() == fileFragMsg.getTotalFragsNumber()) {
             //выводим в GUI информацию о компиляции итогового файла из фрагментов в сетевом хранилише
             storageClient.showTextInGUI("File uploading. Final compiling entire file...");
         }
@@ -325,6 +338,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод обрабатывает полученное от сервера сообщение
      * об ошибке загрузки(сохранения) фрагмента файла в облачное хранилище.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onUploadFileFragErrorServerResponse(CommandMessage commandMessage) {
@@ -340,18 +354,19 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
 
     /**
      * Метод обработки ответа сервера со скачанным целым объектом элемента(файлом) внутри
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onDownloadItemOkServerResponse(CommandMessage commandMessage) {
         //вынимаем объект файлового сообщения из объекта сообщения(команды)
         FileMessage fileMessage = (FileMessage) commandMessage.getMessageObject();
         //если сохранение прошло удачно
-        if(storageClient.downloadItem(fileMessage)){
+        if (storageClient.downloadItem(fileMessage)) {
             //очищаем метку уведомлений
             showTextInGUI("");
             //обновляем список файловых объектов на клиенте
             guiController.updateClientItemListInGUI(fileMessage.getClientDirectoryItem());
-        //если что-то пошло не так
+            //если что-то пошло не так
         } else {
             //печатаем сообщение в консоль
             printMsg("[client]" + fileUtils.getMsg());
@@ -363,6 +378,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод обрабатывает полученное от сервера сообщение об ошибке
      * скачивания объекта элемента(файла) из облачного хранилища
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onDownloadFileErrorServerResponse(CommandMessage commandMessage) {
@@ -373,6 +389,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод обработки ответа от сервера на скачивание файла-фрагмента
      * в директорию в клиенте.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onDownloadFileFragOkServerResponse(CommandMessage commandMessage) {
@@ -381,7 +398,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
         //объявляем переменную типа команды
         Commands command;
         //если сохранение полученного фрагмента файла во временную папку клиента прошло удачно
-        if(storageClient.downloadItemFragment(fileFragMsg)){
+        if (storageClient.downloadItemFragment(fileFragMsg)) {
             //выводим в GUI информацию с номером загруженного фрагмента файла
             storageClient.showTextInGUI("File downloading. Completed fragment: " +
                     fileFragMsg.getCurrentFragNumber() +
@@ -402,11 +419,11 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
         //отправляем объект сообщения(команды) серверу
         ctx.writeAndFlush(new CommandMessage(command, fileFragMsg));
         //если это последний фрагмент
-        if(fileFragMsg.isFinalFileFragment()){
+        if (fileFragMsg.isFinalFileFragment()) {
             //выводим в GUI информацию о компиляции итогового файла из фрагментов в сетевом хранилише
             storageClient.showTextInGUI("File downloading. Final compiling entire file...");
             //если корректно собран файл из фрагментов сохраненных во временную папку
-            if(storageClient.compileItemFragments(fileFragMsg)){
+            if (storageClient.compileItemFragments(fileFragMsg)) {
                 //очищаем метку уведомлений
                 showTextInGUI("");
                 //обновляем список файловых объектов на клиенте
@@ -425,6 +442,7 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
     /**
      * Метод выводит в GUI список объектов(файлов и папок) в корневой пользовательской директории
      * в сетевом хранилище
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void updateStorageItemListInGUI(CommandMessage commandMessage) {
@@ -439,14 +457,15 @@ public class CommandMessageManager extends ChannelInboundHandlerAdapter {
 
     /**
      * Метод выводит сообщение в нижнюю метку GUI
+     *
      * @param text - сообщение
      */
-    public void showTextInGUI(String text){
+    public void showTextInGUI(String text) {
         //выводим сообщение в нижнюю метку GUI
         guiController.showTextInGUI(text);
     }
 
-    public void printMsg(String msg){
+    public void printMsg(String msg) {
         storageClient.writeToLog(msg);
     }
 

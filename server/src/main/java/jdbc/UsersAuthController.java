@@ -40,12 +40,13 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Метод-прокладка запускает процесс регистрации нового пользователя в БД
+     *
      * @param authMessage - объект авторизационного сообщения
      * @return - результат операции регистрации в БД
      */
     public boolean registerUser(AuthMessage authMessage) {
         //если директория с таким логином уже есть в сетевом хранилище
-        if(isUserRootDirExist(authMessage.getLogin())){
+        if (isUserRootDirExist(authMessage.getLogin())) {
             //выводим сообщение в консоль
             printMsg("[server]UsersAuthController.registerUser() - " +
                     "A user's root directory for this login exists!");
@@ -53,7 +54,7 @@ public class UsersAuthController { //UserRepository
             return false;
         }
         //если пользователь с таким логином уже зарегистрирован в БД
-        if(isUserRegistered(authMessage.getLogin())){
+        if (isUserRegistered(authMessage.getLogin())) {
             //выводим сообщение в консоль
             printMsg("[server]UsersAuthController.registerUser() - " +
                     "A user with this login has been registered already!");
@@ -61,8 +62,8 @@ public class UsersAuthController { //UserRepository
             return false;
         }
         //если регистрация нового пользователя в БД прошла не удачно
-        if(!insertUserIntoDBSecurely(authMessage.getLogin(), authMessage.getFirst_name(),
-                authMessage.getLast_name(), authMessage.getEmail(), authMessage.getPassword())){
+        if (!insertUserIntoDBSecurely(authMessage.getLogin(), authMessage.getFirst_name(),
+                authMessage.getLast_name(), authMessage.getEmail(), authMessage.getPassword())) {
             //выводим сообщение в консоль
             printMsg("[server]UsersAuthController.authorizeUser() - " +
                     "This user has not been registered yet!");
@@ -70,7 +71,7 @@ public class UsersAuthController { //UserRepository
             return false;
         }
         //если создание конрневой директории для нового пользователяпрошла не удачно
-        if(!storageServer.createNewUserRootFolder(authMessage.getLogin())){
+        if (!storageServer.createNewUserRootFolder(authMessage.getLogin())) {
             //выводим сообщение в консоль
             printMsg("[server]UsersAuthController.authorizeUser() - " +
                     "This user's root directory exists already!");
@@ -82,13 +83,14 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Метод обработки авторизации клиента в сетевом хранилище.
-     * @param ctx - сетевое соединение
+     *
+     * @param ctx         - сетевое соединение
      * @param authMessage - объект авторизационного сообщения
      * @return true, если авторизация прошла успешно
      */
-    public boolean authorizeUser(AuthMessage authMessage, ChannelHandlerContext ctx){
+    public boolean authorizeUser(AuthMessage authMessage, ChannelHandlerContext ctx) {
         //если пользователь еще не зарегистрирован в БД
-        if(!isUserRegistered(authMessage.getLogin())){
+        if (!isUserRegistered(authMessage.getLogin())) {
             //выводим сообщение в консоль
             printMsg("[server]UsersAuthController.authorizeUser() - " +
                     "This user has not been registered yet!");
@@ -96,7 +98,7 @@ public class UsersAuthController { //UserRepository
             return false;
         }
         //если пользователь с таким логином уже авторизован
-        if(isUserAuthorized(authMessage.getLogin(), ctx)){
+        if (isUserAuthorized(authMessage.getLogin(), ctx)) {
             //выводим сообщение в консоль
             printMsg("[server]UsersAuthController.authorizeUser - " +
                     "This user has been authorised already!");
@@ -104,7 +106,7 @@ public class UsersAuthController { //UserRepository
             return false;
         }
         //если пара логина и пароля релевантна
-        if(checkLoginAndPasswordInDBSecurely(authMessage.getLogin(), authMessage.getPassword())){
+        if (checkLoginAndPasswordInDBSecurely(authMessage.getLogin(), authMessage.getPassword())) {
             //добавляем пользователя в список авторизованных
             authorizedUsers.put(authMessage.getLogin(), ctx);
             //возвращаем true, чтобы завершить процесс регистрации пользователя
@@ -115,6 +117,7 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Перегруженный метод удаляет клиента из списка авторизованных(по ключу), если оно было авторизовано.
+     *
      * @param login - -ключ - логин пользователя
      */
     public void deAuthorizeUser(String login) {
@@ -124,12 +127,13 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Перегруженный метод удаляет клиента из списка авторизованных(по значению), если оно было авторизовано.
+     *
      * @param ctx - значение - сетевое соединение клиента
      */
     public void deAuthorizeUser(ChannelHandlerContext ctx) {
         //в цикле ищем ключ со значение заданого логина
-        for (Map.Entry<String, ChannelHandlerContext> keys: authorizedUsers.entrySet()) {
-            if(keys.getValue().equals(ctx)){
+        for (Map.Entry<String, ChannelHandlerContext> keys : authorizedUsers.entrySet()) {
+            if (keys.getValue().equals(ctx)) {
                 //и удаляем его из списка
                 authorizedUsers.remove(keys.getKey());
             }
@@ -138,14 +142,15 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Метод заменяет данные безопасного хэша и "соли" пользователя в БД.
-     * @param login - заданный логин пользователя
+     *
+     * @param login       - заданный логин пользователя
      * @param oldPassword - заданный текущий пароль пользователя
      * @param newPassword - заданный новый пароль пользователя
      * @return - результат изменения пароля в БД
      */
-    public boolean changeUserPassword(String login, String oldPassword, String newPassword){
+    public boolean changeUserPassword(String login, String oldPassword, String newPassword) {
         //если старый пароль пользователя не подходит
-        if(!checkLoginAndPasswordInDBSecurely(login, oldPassword)){
+        if (!checkLoginAndPasswordInDBSecurely(login, oldPassword)) {
             //выводим сообщение в консоль
             printMsg("[server]UsersAuthController.changeUserPassword() - " +
                     "This user's old password is not acceptable!");
@@ -153,7 +158,7 @@ public class UsersAuthController { //UserRepository
             return false;
         }
         //если пароль пользователя не был заменен на новый
-        if(!updateUserPasswordInDBSecurely(login, newPassword)){
+        if (!updateUserPasswordInDBSecurely(login, newPassword)) {
             //выводим сообщение в консоль
             printMsg("[server]UsersAuthController.changeUserPassword() - " +
                     "The user's password hasn't been changed!");
@@ -165,6 +170,7 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Метод-прокладка запускает проверку есть ли уже корневая директория для заданного логина.
+     *
      * @param login - логин нового пользователя
      * @return - результат проверки есть ли уже корневая директория для заданного логина
      */
@@ -174,19 +180,20 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Метод проверяет не авторизован ли уже пользователь с таким логином и объектом соединения.
+     *
      * @param login - логин пользователя
-     * @param ctx - сетевое соединение
+     * @param ctx   - сетевое соединение
      * @return - результат проверки
      */
     private boolean isUserAuthorized(String login, ChannelHandlerContext ctx) {
         //если есть элемент с таким логином в списке авторизованных пользователей
-        if(authorizedUsers.containsKey(login)){
+        if (authorizedUsers.containsKey(login)) {
             return true;
         }
         //проверяем все элементы списка по значениям(на всякий случай)
-        for (Map.Entry<String, ChannelHandlerContext> user: authorizedUsers.entrySet()) {
+        for (Map.Entry<String, ChannelHandlerContext> user : authorizedUsers.entrySet()) {
             //если есть элемент в списке авторизованных с такими объектом соединения
-            if(user.getValue().channel().equals(ctx.channel())){
+            if (user.getValue().channel().equals(ctx.channel())) {
                 return true;
             }
         }
@@ -196,6 +203,7 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Метод проверяет введенный логин в БД на уникальность(не зарегистрирован ли уже такой логин?).
+     *
      * @param login - проверяемый логин
      * @return - результат проверки
      */
@@ -208,7 +216,7 @@ public class UsersAuthController { //UserRepository
             // оправка запроса и получение ответа из БД
             ResultSet rs = statement.executeQuery(sql);
             // если есть строка, то rs.next() возвращает true, если нет - false
-            if(rs.next()) {
+            if (rs.next()) {
                 //такой логин есть в БД
                 return true;
             }
@@ -220,7 +228,8 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Метод безопасно верифицирует заданные логин и пароль с данными пользователя в БД.
-     * @param login - заданный логин пользователя
+     *
+     * @param login    - заданный логин пользователя
      * @param password - заданный пароль пользователя
      * @return - результат проверки данных в БД
      */
@@ -236,7 +245,7 @@ public class UsersAuthController { //UserRepository
             //оправляем запрос и получяем ответ из БД
             ResultSet rs = preparedStatement.executeQuery();
             // если есть строка, то rs.next() возвращает true, если нет - false
-            if(rs.next()) {
+            if (rs.next()) {
                 //выделяем из результата запроса данные безопасного пароля пользователя из БД
                 // инициируем временные байтовые массивы для безопасного хэша и "соли"
                 byte[] secure_hash = rs.getBytes("secure_hash");
@@ -255,15 +264,16 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Метод безопасно добавляет нового пользователя в БД.
-     * @param login - логин пользователя
+     *
+     * @param login      - логин пользователя
      * @param first_name - имя пользователя
-     * @param last_name - фамилия пользователя
-     * @param email - email пользователя
-     * @param password - пароль пользователя
+     * @param last_name  - фамилия пользователя
+     * @param email      - email пользователя
+     * @param password   - пароль пользователя
      * @return - результат добавляения новой строки в БД.
      */
     private boolean insertUserIntoDBSecurely(String login, String first_name, String last_name,
-                                            String email, String password){
+                                             String email, String password) {
         try {
             //генерирует "соль" - случайный байтовый массив
             byte[] secure_salt = secureHasher.generateSalt();
@@ -290,7 +300,7 @@ public class UsersAuthController { //UserRepository
             //оправляем запрос и получяем ответ из БД
             int rs = preparedStatement.executeUpdate();
             // если строка добавлена, то возвращается 1, если нет, то вернеться 0?
-            if(rs != 0) {
+            if (rs != 0) {
                 return true;
             }
         } catch (SQLException | InvalidKeySpecException e) {
@@ -301,11 +311,12 @@ public class UsersAuthController { //UserRepository
 
     /**
      * Метод заменяет данные безопасного хэша и "соли" пользователя в БД.
-     * @param login - заданный логин пользователя
+     *
+     * @param login    - заданный логин пользователя
      * @param password - заданный пароль пользователя
      * @return - результат изменения данных в БД
      */
-    private boolean updateUserPasswordInDBSecurely(String login, String password){
+    private boolean updateUserPasswordInDBSecurely(String login, String password) {
         try {
             //генерирует "соль" - случайный байтовый массив
             byte[] secure_salt = secureHasher.generateSalt();
@@ -325,7 +336,7 @@ public class UsersAuthController { //UserRepository
             //оправляем запрос и получяем ответ из БД
             int rs = preparedStatement.executeUpdate();
             // если данные заменены, то возвращается 1, если нет, то вернеться 0?
-            if(rs != 0) {
+            if (rs != 0) {
                 return true;
             }
         } catch (SQLException | InvalidKeySpecException e) {
@@ -334,7 +345,7 @@ public class UsersAuthController { //UserRepository
         return false;
     }
 
-    public void printMsg(String msg){
+    public void printMsg(String msg) {
         storageServer.printMsg(msg);
     }
 

@@ -117,11 +117,12 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод-прокладка запускает процессы: показа окна авторизации в режиме авторизации
      * и процесс регистрации пользователя в сетевом хранилище.
-     * @param login - логин пользователя
+     *
+     * @param login      - логин пользователя
      * @param first_name - имя пользователя
-     * @param last_name - фамилия пользователя
-     * @param email - email пользователя
-     * @param password - пароль пользователя
+     * @param last_name  - фамилия пользователя
+     * @param email      - email пользователя
+     * @param password   - пароль пользователя
      */
     public void demandRegistration(String login, String first_name, String last_name,
                                    String email, String password) {
@@ -131,7 +132,8 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод-прокладка запускает процесс показа основного окна и процесс
      * авторизации пользователя в сетевом хранилище.
-     * @param login - логин пользователя
+     *
+     * @param login    - логин пользователя
      * @param password - пароль пользователя
      */
     public void demandAuthorisation(String login, String password) {
@@ -141,8 +143,9 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод-прокладка запускает процесс отправки запроса на изменение пароля пользователя
      * в сетевое хранилище.
-     * @param login - логин пользователя
-     * @param password - текущий пароль пользователя
+     *
+     * @param login       - логин пользователя
+     * @param password    - текущий пароль пользователя
      * @param newPassword - новый пароль пользователя
      */
     public void demandChangePassword(String login, String password, String newPassword) {
@@ -178,13 +181,14 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод обновляет список элементов списка в заданной директории клиентской части
+     *
      * @param directoryItem - объект элемента заданной директории
      */
     public void updateClientItemListInGUI(Item directoryItem) {
         //в отдельном потоке запускаем обновление интерфейса
         Platform.runLater(() -> {
             //если папка доступна
-            if(storageClient.clientItemsList(directoryItem) != null) {
+            if (storageClient.clientItemsList(directoryItem) != null) {
                 //обновляем объект текущей директории
                 clientCurrentDirItem = directoryItem;
                 //обновляем заданный список объектов элемента
@@ -204,14 +208,15 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод выводит в GUI список объектов(файлов и папок)
      * в корневой пользовательской директории в сетевом хранилище.
+     *
      * @param directoryItem - объект полученной пользовательской директории в сетевом хранилище
-     * @param items - массив объектов элементов в директории
+     * @param items         - массив объектов элементов в директории
      */
-    public void updateStorageItemListInGUI(Item directoryItem, Item[] items){
+    public void updateStorageItemListInGUI(Item directoryItem, Item[] items) {
         //в отдельном потоке запускаем обновление интерфейса
         Platform.runLater(() -> {
             //если папка доступна
-            if(items != null) {
+            if (items != null) {
                 //обновляем объект текущей директории
                 storageCurrentDirItem = directoryItem;
                 //обновляем заданный список объектов элемента
@@ -229,8 +234,9 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод обновляет заданный список объектов элемента.
+     *
      * @param listView - коллекция объектов элемента
-     * @param items - массив объектов элемента
+     * @param items    - массив объектов элемента
      */
     private void updateListView(ListView<Item> listView, Item[] items) {
         //очищаем коллекцию элементов
@@ -240,7 +246,7 @@ public class GUIController extends AbstractController implements Initializable {
         //сортируем коллекцию элементов списка(папки вверху)
         listView.getItems().sort((o1, o2) -> {
             //если оба элемента одного типа(директория или файл)
-            if(o1.isDirectory() && o2.isDirectory() ||
+            if (o1.isDirectory() && o2.isDirectory() ||
                     !o1.isDirectory() && !o2.isDirectory()) {
                 //то сравниваем их по именам
                 //Внимание! Без .toLowerCase() учитывается регистр при сортировке,
@@ -255,10 +261,11 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод инициирует контекстное меню для листвью клиента.
-     * @param listView - коллекция объектов элемента
+     *
+     * @param listView    - коллекция объектов элемента
      * @param contextMenu - объект контекстного меню
      */
-    private void setClientContextMenu(ListView<Item> listView, ContextMenu contextMenu){
+    private void setClientContextMenu(ListView<Item> listView, ContextMenu contextMenu) {
         // добавляем скопом элементы в контестное меню
         contextMenu.getItems().addAll(menuItemUpload(listView),
                 menuItemRename(listView), menuItemDelete(listView));
@@ -270,10 +277,11 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод инициирует контекстное меню для листвью сетевого хранилища.
-     * @param listView - коллекция объектов элемента
+     *
+     * @param listView    - коллекция объектов элемента
      * @param contextMenu - объект контекстного меню
      */
-    private void setStorageContextMenu(ListView<Item> listView, ContextMenu contextMenu){
+    private void setStorageContextMenu(ListView<Item> listView, ContextMenu contextMenu) {
         // добавляем скопом неизменяемые элементы в контестное меню
         contextMenu.getItems().addAll(menuItemDownload(listView),
                 menuItemRename(listView), menuItemDelete(listView));
@@ -285,42 +293,44 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Приватный общий метод устанавливает настройки вызова заданного контекстного меню.
-     * @param listView - объект заданного листвью
-     * @param contextMenu - объект заданного контектстного меню
+     *
+     * @param listView     - объект заданного листвью
+     * @param contextMenu  - объект заданного контектстного меню
      * @param dirMenuItems - коллекция объектов элементов меню только для директорий
      */
     private void setContextMenu(ListView<Item> listView, ContextMenu contextMenu,
-                                List<MenuItem> dirMenuItems){
-    //устаналиваем событие на клик правой кнопки мыши по элементу списка
-    listView.setOnContextMenuRequested(event -> {
-        //если контекстное меню уже показывается или снова кликнуть на пустой элемент списка
-        if(contextMenu.isShowing() ||
-                listView.getSelectionModel().getSelectedItems().isEmpty()){
-            //скрываем контекстное меню
-            contextMenu.hide();
-            //очищаем выделение
-            listView.getSelectionModel().clearSelection();
-            return;
-        }
-        // и если выбранный элемент это директория
-        if(listView.getSelectionModel().getSelectedItem().isDirectory()){
-            // добавляем элементы в контестное меню(сверху)
-            for (int i = 0; i < dirMenuItems.size(); i++) {
-                contextMenu.getItems().add(i, dirMenuItems.get(i));
+                                List<MenuItem> dirMenuItems) {
+        //устаналиваем событие на клик правой кнопки мыши по элементу списка
+        listView.setOnContextMenuRequested(event -> {
+            //если контекстное меню уже показывается или снова кликнуть на пустой элемент списка
+            if (contextMenu.isShowing() ||
+                    listView.getSelectionModel().getSelectedItems().isEmpty()) {
+                //скрываем контекстное меню
+                contextMenu.hide();
+                //очищаем выделение
+                listView.getSelectionModel().clearSelection();
+                return;
             }
-        //если не директория
-        } else {
-            // удаляем элементы из контестного меню
-            contextMenu.getItems().removeAll(dirMenuItems);
-        }
-        //показываем контекстное меню в точке клика(позиция левого-верхнего угла контекстного меню)
-        contextMenu.show(listView, event.getScreenX(), event.getScreenY());
-    });
-}
+            // и если выбранный элемент это директория
+            if (listView.getSelectionModel().getSelectedItem().isDirectory()) {
+                // добавляем элементы в контестное меню(сверху)
+                for (int i = 0; i < dirMenuItems.size(); i++) {
+                    contextMenu.getItems().add(i, dirMenuItems.get(i));
+                }
+                //если не директория
+            } else {
+                // удаляем элементы из контестного меню
+                contextMenu.getItems().removeAll(dirMenuItems);
+            }
+            //показываем контекстное меню в точке клика(позиция левого-верхнего угла контекстного меню)
+            contextMenu.show(listView, event.getScreenX(), event.getScreenY());
+        });
+    }
 
     /**
      * Метод инициирует элемент контекстного меню "Get into".
      * Запрашивает список объектов для выбранной директории.
+     *
      * @param listView - текущий список объектов элемента
      * @return - объект элемента контекстного меню "Get into"
      */
@@ -332,11 +342,11 @@ public class GUIController extends AbstractController implements Initializable {
             //запоминаем кликнутый элемент списка
             Item item = listView.getSelectionModel().getSelectedItem();
             //если текущий список клиентский
-            if(listView.equals(clientItemListView)){
+            if (listView.equals(clientItemListView)) {
                 //обновляем список объектов элемента клиентской части
                 updateClientItemListInGUI(item);
-            //если текущий список облачного хранилища
-            } else if(listView.equals(storageItemListView)){
+                //если текущий список облачного хранилища
+            } else if (listView.equals(storageItemListView)) {
                 //отправляем на сервер запрос на получение списка элементов заданной директории
                 //пользователя в сетевом хранилище
                 storageClient.demandDirectoryItemList(item.getItemPathname());
@@ -350,6 +360,7 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод инициирует элемент контекстного меню "Set As Root".
      * Устанавливает выбранную директорию в качестве корневой директории клиента.
+     *
      * @param listView - текущий список объектов элемента
      * @return - объект элемента контекстного меню "Set As Root"
      */
@@ -373,6 +384,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод инициирует элемент контекстного меню "Загрузить в облачное хранилище"
+     *
      * @param listView - текущий список объектов элемента
      * @return - объект элемента контекстного меню "Upload"
      */
@@ -399,6 +411,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод инициирует элемент контекстного меню "Скачать из облачного хранилища"
+     *
      * @param listView - текущий список объектов элемента
      * @return - объект элемента контекстного меню "Download"
      */
@@ -421,6 +434,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод инициирует элемент контекстного меню "Переименовать"
+     *
      * @param listView - текущий список объектов элемента
      * @return - объект элемента контекстного меню "Rename"
      */
@@ -433,14 +447,14 @@ public class GUIController extends AbstractController implements Initializable {
             Item origin = listView.getSelectionModel().getSelectedItem();
             //открываем диалоговое окно переименования файлового объекта
             //если окно было просто закрыто по крестику, то выходим без действий
-            if(windowsManager.openNewNameWindow(origin.getItemName())){
+            if (windowsManager.openNewNameWindow(origin.getItemName())) {
                 return;
             }
             //если текущий список клиентский
-            if(listView.equals(clientItemListView)){
+            if (listView.equals(clientItemListView)) {
                 //переименовываем файловый объект
                 //если произошла ошибка при переименовании
-                if(!storageClient.renameClientItem(origin, newName)){
+                if (!storageClient.renameClientItem(origin, newName)) {
                     //выводим сообщение в метку оповещений
                     noticeLabel.setText("Something wrong with item renaming!");
                     //печатаем в лог сообщение об ошибке
@@ -449,7 +463,7 @@ public class GUIController extends AbstractController implements Initializable {
                 //обновляем список объектов элемента в текущей директории
                 updateClientItemListInGUI(clientCurrentDirItem);
                 //если текущий список облачного хранилища
-            } else if(listView.equals(storageItemListView)){
+            } else if (listView.equals(storageItemListView)) {
                 //отправляем на сервер запрос на переименования объекта в заданной директории
                 //пользователя в сетевом хранилище
                 storageClient.demandRenameItem(storageCurrentDirItem, origin, newName);
@@ -464,6 +478,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод инициирует элемент контекстного меню "Удалить"
+     *
      * @param listView - текущий список объектов элемента
      * @return - объект элемента контекстного меню "Delete"
      */
@@ -475,16 +490,16 @@ public class GUIController extends AbstractController implements Initializable {
             //запоминаем выбранный элемент списка
             Item item = listView.getSelectionModel().getSelectedItem();
             //открываем диалоговое окно - предупреждение-подтверждение на удаление элемента
-            if(!windowsManager.openDeleteConfirmationWindow(item.getItemPathname())) {
+            if (!windowsManager.openDeleteConfirmationWindow(item.getItemPathname())) {
                 //сбрасываем выделение элемента и выходим без действий
                 listView.getSelectionModel().clearSelection();
                 return;
             }
             //если текущий список клиентский
-            if(listView.equals(clientItemListView)){
+            if (listView.equals(clientItemListView)) {
                 //удаляем файл или папку в текущей директории на клиенте
                 //если произошла ошибка при удалении
-                if(!storageClient.deleteClientItem(item)){
+                if (!storageClient.deleteClientItem(item)) {
                     //выводим сообщение в метку оповещений
                     noticeLabel.setText("Something wrong with item deleting!");
                     //печатаем в лог сообщение об ошибке
@@ -493,7 +508,7 @@ public class GUIController extends AbstractController implements Initializable {
                 //обновляем список элементов списка клиентской части
                 updateClientItemListInGUI(clientCurrentDirItem);
                 //если текущий список облачного хранилища
-            } else if(listView.equals(storageItemListView)){
+            } else if (listView.equals(storageItemListView)) {
                 //отправляем на сервер запрос на удаление объекта в заданной директории
                 //пользователя в сетевом хранилище
                 storageClient.demandDeleteItem(storageCurrentDirItem, item);
@@ -506,6 +521,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод-прокладка обрабатывает клик мыши по клиентской листвью.
+     *
      * @param mouseEvent - клик мыши
      */
     @FXML
@@ -516,6 +532,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод-прокладка обрабатывает клик мыши по листвью сетевого хранилища.
+     *
      * @param mouseEvent - клик мыши
      */
     @FXML
@@ -528,21 +545,22 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Приватный метод обрабатывает клик на листвью.
-     * @param mouseEvent - клик мыши
+     *
+     * @param mouseEvent  - клик мыши
      * @param contextMenu - контекстное меню
-     * @param listView - листвью
-     * @param consumer - выполняемый метод
+     * @param listView    - листвью
+     * @param consumer    - выполняемый метод
      */
     private void onListViewMouseClickAction(MouseEvent mouseEvent, ContextMenu contextMenu,
-                                           ListView<Item> listView, Consumer<Item> consumer) {
+                                            ListView<Item> listView, Consumer<Item> consumer) {
         //если нажата левая кнопка мыши
-        if(mouseEvent.getButton().name().equals("PRIMARY")) {
+        if (mouseEvent.getButton().name().equals("PRIMARY")) {
             //если контекстное меню показывается
             if (contextMenu.isShowing()) {
                 //закрываем контекстное меню
                 contextMenu.hide();
                 //если двойное нажатие
-            } else if (mouseEvent.getClickCount() == 2){
+            } else if (mouseEvent.getClickCount() == 2) {
                 Item item = listView.getSelectionModel().getSelectedItem();
                 //если нажатый элемент списка не пустой или директория
                 if (item != null && item.isDirectory()) {
@@ -564,6 +582,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод отрабатывает нажатие на пунтк меню "About".
+     *
      * @param actionEvent - событие(здесь клик мыши)
      */
     @FXML
@@ -574,6 +593,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод отрабатывает нажатие на пунтк меню "Change Client Root".
+     *
      * @param actionEvent - событие(здесь клик мыши)
      */
     @FXML
@@ -584,6 +604,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод отрабатывает нажатие на пункт меню "ChangePassword".
+     *
      * @param actionEvent - событие(здесь клик мыши)
      */
     @FXML
@@ -594,6 +615,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод отрабатывает нажатие на пункт меню "Connect/Disconnect".
+     *
      * @param actionEvent - событие(здесь клик мыши на Disconnect)
      */
     @FXML
@@ -606,6 +628,7 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод отрабатывает нажатие на кнопку "Home" в клиентской части GUI.
      * Выводит список объектов элемента в корневой директории в клиентской части
+     *
      * @param mouseEvent - любой клик мышкой
      */
     @FXML
@@ -616,6 +639,7 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод отрабатывает нажатие на кнопку "Home" в серверной части GUI.
      * Запрашивает у сервера список объектов элемента в корневой директории в серверной части
+     *
      * @param mouseEvent - любой клик мышкой
      */
     @FXML
@@ -626,6 +650,7 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод отрабатывает нажатие на кнопку "GoUp" в клиентской части GUI.
      * Выводит список объектов элемента в родительской директории в клиентской части
+     *
      * @param mouseEvent - любой клик мышкой
      */
     @FXML
@@ -639,6 +664,7 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод отрабатывает нажатие на кнопку "GoUp" в серверной части GUI.
      * Запрашивает у сервера список объектов элемента в родительской директории в серверной части
+     *
      * @param mouseEvent - любой клик мышкой
      */
     @FXML
@@ -649,6 +675,7 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод отрабатывает нажатие на кнопку "Refresh" в клиентской части GUI.
      * Запрашивает у сервера список объектов элемента в текущей директории в клиентской части
+     *
      * @param mouseEvent - любой клик мышкой
      */
     @FXML
@@ -660,6 +687,7 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод отрабатывает нажатие на кнопку "Refresh" в серверной части GUI.
      * Запрашивает у сервера список объектов элемента в текущей директории в серверной части
+     *
      * @param mouseEvent - любой клик мышкой
      */
     @FXML
@@ -672,17 +700,18 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод отрабатывает нажатие на кнопку "NewFolder" в клиентской части GUI.
      * Запрашивает у сервера создать новую папку в текущей директории в клиентской части
+     *
      * @param mouseEvent - любой клик мышкой
      */
     @FXML
     public void onClientNewFolderBtnClicked(MouseEvent mouseEvent) {
         //открываем диалоговое окно переименования файлового объекта
         //если окно было просто закрыто по крестику, то выходим без действий
-        if(windowsManager.openNewNameWindow("")){
+        if (windowsManager.openNewNameWindow("")) {
             return;
         }
         //если новая папка создана удачно
-        if(!storageClient.createNewFolder(storageCurrentDirItem.getItemPathname(), newName)){
+        if (!storageClient.createNewFolder(storageCurrentDirItem.getItemPathname(), newName)) {
             noticeLabel.setText("A folder has not created!");
             return;
         }
@@ -693,13 +722,14 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод отрабатывает нажатие на кнопку "NewFolder" в серверной части GUI.
      * Запрашивает у сервера создать новую папку в текущей директории в серверной части
+     *
      * @param mouseEvent - любой клик мышкой
      */
     @FXML
     public void onStorageNewFolderBtnClicked(MouseEvent mouseEvent) {
         //открываем диалоговое окно переименования файлового объекта
         //если окно было просто закрыто по крестику, то выходим без действий
-        if(windowsManager.openNewNameWindow("")){
+        if (windowsManager.openNewNameWindow("")) {
             return;
         }
         //отправляем на сервер запрос на получение списка элементов заданной директории
@@ -718,6 +748,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод устанавливает режим отображения GUI "Отсоединен" или "Подсоединен".
+     *
      * @param isDisconnectedMode - если true - "Отсоединен"
      */
     public void setDisconnectedMode(boolean isDisconnectedMode) {
@@ -739,13 +770,13 @@ public class GUIController extends AbstractController implements Initializable {
         storageItemListView.setVisible(!isDisconnectedMode);
 
         //если установлен режим отсоединен
-        if(isDisconnectedMode) {
+        if (isDisconnectedMode) {
             //меняем текст пункта меню
             connectDisconnectMenuItem.setText("Connect");
             //устанавливаем хэндлер события
             connectDisconnectMenuItem.setOnAction(event ->
                     onConnectToCloudStorageButtonClick());
-        //если установлен режим соединен
+            //если установлен режим соединен
         } else {
             //меняем текст пункта меню
             connectDisconnectMenuItem.setText("Disconnect");
@@ -758,6 +789,7 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод устанавливает GUI в режим авторизован или нет, в зависимости от параметра
+     *
      * @param isAuthMode - true - сервер авторизовал пользователя
      */
     public void setAuthorizedMode(boolean isAuthMode) {
@@ -773,19 +805,19 @@ public class GUIController extends AbstractController implements Initializable {
         storageItemListView.setManaged(isAuthMode);
         storageItemListView.setVisible(isAuthMode);
         //если авторизация получена
-        if(isAuthMode){
+        if (isAuthMode) {
             //если объект контроллера регистрации не нулевой
-            if(windowsManager.getRegistrationController() != null){
+            if (windowsManager.getRegistrationController() != null) {
                 //закрываем окно формы в потоке JavaFX
                 Platform.runLater(() -> windowsManager.getRegistrationController().hideWindow());
             }
             //если объект контроллера авторизации не нулевой
-            if(windowsManager.getAuthorisationController() != null){
+            if (windowsManager.getAuthorisationController() != null) {
                 //закрываем окно формы в потоке JavaFX
                 Platform.runLater(() -> windowsManager.getAuthorisationController().hideWindow());
             }
             //если объект контроллера изменения пароля пользователя не нулевой
-            if(windowsManager.getChangePasswordController() != null){
+            if (windowsManager.getChangePasswordController() != null) {
                 //закрываем окно формы в потоке JavaFX
                 Platform.runLater(() -> windowsManager.getChangePasswordController().hideWindow());
             }
@@ -795,9 +827,9 @@ public class GUIController extends AbstractController implements Initializable {
     /**
      * Метод открывает окно регистрации.
      */
-    public void setRegistrationFormMode(){
+    public void setRegistrationFormMode() {
         //если объект контроллера регистрации не нулевой
-        if(windowsManager.getAuthorisationController() != null){
+        if (windowsManager.getAuthorisationController() != null) {
             //закрываем окно формы в потоке JavaFX
             Platform.runLater(() -> windowsManager.getAuthorisationController().hideWindow());
         }
@@ -810,7 +842,7 @@ public class GUIController extends AbstractController implements Initializable {
      */
     public void setAuthorizationFormMode() {
         //если объект контроллера регистрации не нулевой
-        if(windowsManager.getRegistrationController() != null){
+        if (windowsManager.getRegistrationController() != null) {
             //закрываем окно формы в потоке JavaFX
             Platform.runLater(() -> windowsManager.getRegistrationController().hideWindow());
         }
@@ -825,10 +857,10 @@ public class GUIController extends AbstractController implements Initializable {
      */
     public void setRegisteredAndUnauthorisedMode() {
         //инициируем переменные межпотоковые переменные для логин аи пароля
-        AtomicReference<String>  loginAtomic = new AtomicReference<>();
-        AtomicReference<String>  passwordAtomic = new AtomicReference<>();
+        AtomicReference<String> loginAtomic = new AtomicReference<>();
+        AtomicReference<String> passwordAtomic = new AtomicReference<>();
         //если объект контроллера регистрации не нулевой
-        if(windowsManager.getRegistrationController() != null){
+        if (windowsManager.getRegistrationController() != null) {
             //закрываем окно формы в потоке JavaFX
             Platform.runLater(() -> {
                 //сохраняем логин и пароль из регистрационной формы
@@ -852,9 +884,10 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод выводит в отдельном потоке(не javaFX) переданное сообщение в метку уведомлений.
+     *
      * @param text - строка сообщения
      */
-    public void showTextInGUI(String text){
+    public void showTextInGUI(String text) {
         //в отдельном потоке запускаем обновление интерфейса
         Platform.runLater(() -> {
             //выводим сообщение в нижнюю метку GUI
@@ -868,16 +901,17 @@ public class GUIController extends AbstractController implements Initializable {
 
     /**
      * Метод записывает новое значение абсолютного пути к корневой папке клиента.
+     *
      * @param newPathname - новое значение абсолютного пути
      */
     public void setNewRootPathname(String newPathname) {
         //если введенное имя пути пустое, то выходим
-        if(newPathname.trim().isEmpty()){
+        if (newPathname.trim().isEmpty()) {
             return;
         }
         Path newPath = Paths.get(newPathname);
         //если новая директория существует и это действительно директория
-        if(newPath.toFile().exists() && newPath.toFile().isDirectory()){
+        if (newPath.toFile().exists() && newPath.toFile().isDirectory()) {
             //записываем новое значение в переменную корневой директории
             CloudStorageClient.CLIENT_ROOT_PATH = newPath;
             //сохраняем новое значение абсолютного пути
@@ -911,7 +945,7 @@ public class GUIController extends AbstractController implements Initializable {
         }
     }
 
-    void writeToLog(String msg){
+    void writeToLog(String msg) {
         storageClient.writeToLog(msg);
     }
 

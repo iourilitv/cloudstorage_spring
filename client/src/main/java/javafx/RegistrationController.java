@@ -29,13 +29,14 @@ public class RegistrationController {
      * Метод отрабатывает клик кнопки на кнопку "Registration".
      * Открывает Авторизационную форму и запускает процесс отправки запроса на сервер
      * для регистрации в сетевом хранилище.
+     *
      * @param actionEvent - событие клик мыши
      */
     @FXML
     public void onRegistrationBtnClick(ActionEvent actionEvent) {
         //если введенные регистрационные данные корректны
-        if(isRegistrationDataCorrect(login.getText(), first_name.getText(), last_name.getText(),
-                email.getText(), password.getText(), passwordConfirm.getText())){
+        if (isRegistrationDataCorrect(login.getText(), first_name.getText(), last_name.getText(),
+                email.getText(), password.getText(), passwordConfirm.getText())) {
             //выводим сообщение в метку оповещения в GUI
             backController.showTextInGUI("Your registration data has been sent. Wait please...");
             //запускаем процесс регистрации в сетевом хранилище
@@ -48,6 +49,7 @@ public class RegistrationController {
     /**
      * Метод отрабатывает клик линка "Authorization" в регистрационной форме.
      * Открывает Авторизационную форму.
+     *
      * @param actionEvent - событие клик мыши
      */
     @FXML
@@ -62,13 +64,14 @@ public class RegistrationController {
 
     /**
      * Метод проверяет корректность введенных данных в регистрационной форме.
-     * @param login - введенный логин
-     * @param password - введенный пароль
+     *
+     * @param login           - введенный логин
+     * @param password        - введенный пароль
      * @param passwordConfirm - введенный второй раз пароль
      * @return - результат проверки корректности введенных данных в регистрационной форме
      */
     private boolean isRegistrationDataCorrect(String login, String first_name,
-                                              String last_name, String email, String password, String passwordConfirm){
+                                              String last_name, String email, String password, String passwordConfirm) {
         return isLoginPasswordCorrect(login, password) && !first_name.trim().isEmpty() &&
                 !last_name.trim().isEmpty() && isEmailValid(email) &&
                 !passwordConfirm.trim().isEmpty() && password.equals(passwordConfirm);
@@ -76,19 +79,20 @@ public class RegistrationController {
 
     /**
      * Метод-прокладка запускает проверку корректности введенной пары - логин и пароль
-     * @param login - введенные логин
+     *
+     * @param login    - введенные логин
      * @param password - введенные пароль
      * @return - результат проверки корректности введенной пары - логин и пароль
      */
-    private boolean isLoginPasswordCorrect(String login, String password){
+    private boolean isLoginPasswordCorrect(String login, String password) {
         //если логин невалидный
-        if(formChecker.isLoginNotValid(login)){
+        if (formChecker.isLoginNotValid(login)) {
             //выводим соотвествующее предупреждение в лог и в метку сообщений в GUI
             writeToLog("RegistrationController.isLoginPasswordCorrect() - " + formChecker.getMessage());
             showNoticeInGUI(formChecker.getMessage());
             return false;
-        //если пароль невалидный
-        } else if (formChecker.isPasswordNotValid(password)){
+            //если пароль невалидный
+        } else if (formChecker.isPasswordNotValid(password)) {
             writeToLog("RegistrationController.isLoginPasswordCorrect() - " + formChecker.getMessage());
             showNoticeInGUI(formChecker.getMessage());
             return false;
@@ -98,12 +102,13 @@ public class RegistrationController {
 
     /**
      * Метод-прокладка запускает проверку корректности введенного email.
+     *
      * @param email - введенный email
      * @return - результат проверки
      */
-    private boolean isEmailValid(String email){
+    private boolean isEmailValid(String email) {
         //если email невалидный
-        if(!formChecker.isEmailValid(email)){
+        if (!formChecker.isEmailValid(email)) {
             //выводим соотвествующее предупреждение в лог и в метку сообщений в GUI
             writeToLog("RegistrationController.isEmailValid() - " + formChecker.getMessage());
             showNoticeInGUI(formChecker.getMessage());
@@ -115,7 +120,7 @@ public class RegistrationController {
     /**
      * Метод очистки полей в регистрационной/авторизационной форме.
      */
-    private void clearRegistrationForm(){
+    private void clearRegistrationForm() {
         login.setText("");
         first_name.setText("");
         last_name.setText("");
@@ -127,9 +132,9 @@ public class RegistrationController {
     /**
      * Метод закрывает окно.
      */
-    public void hideWindow(){
+    public void hideWindow() {
         //если окно показывается
-        if(globParent.getScene().getWindow().isShowing()){
+        if (globParent.getScene().getWindow().isShowing()) {
             //закрываем окно
             globParent.getScene().getWindow().hide();
         }
@@ -147,11 +152,11 @@ public class RegistrationController {
         this.backController = backController;
     }
 
-    private void showNoticeInGUI(String notice){
+    private void showNoticeInGUI(String notice) {
         backController.getNoticeLabel().setText(notice);
     }
 
-    private void writeToLog(String msg){
+    private void writeToLog(String msg) {
         backController.writeToLog(msg);
     }
 }

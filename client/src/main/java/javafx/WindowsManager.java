@@ -37,7 +37,7 @@ public class WindowsManager {
     //объявляем объект контроллера окна изменения пароля пользователя
     private ChangePasswordController changePasswordController;
 
-    public void init(GUIController guiController){
+    public void init(GUIController guiController) {
         this.guiController = guiController;
     }
 
@@ -55,7 +55,8 @@ public class WindowsManager {
 
     /**
      * Перегруженный метод открывает модальное окно для ввода логина и пароля пользователя.
-     * @param login - логин пользователя
+     *
+     * @param login    - логин пользователя
      * @param password - пароль пользователя
      */
     void openAuthorisationWindow(String login, String password) {
@@ -155,6 +156,7 @@ public class WindowsManager {
 
     /**
      * Метод открывает модальное окно для ввода нового имени элемента списка.
+     *
      * @param originName - имя элемента-оригинала
      * @return true - если закрыть окно принудительно, false - при штатном вводе
      */
@@ -250,6 +252,7 @@ public class WindowsManager {
 
     /**
      * Метод открывает модальное окно подтверждения удаления файла.
+     *
      * @param itemPathname - строка пути к объекту элемента списка.
      * @return true, если нажата кнопка OK
      */
@@ -261,7 +264,7 @@ public class WindowsManager {
         //выводим текст в хедер
         alert.setHeaderText("Press OK to confirm deleting the item below:");
         //выводим путь к элементу списка
-         alert.setContentText(">>" + itemPathname);
+        alert.setContentText(">>" + itemPathname);
         //инициируем объект опции
         Optional<ButtonType> option = alert.showAndWait();
         return option.filter(buttonType -> buttonType == ButtonType.OK).isPresent();
@@ -283,7 +286,7 @@ public class WindowsManager {
         return changePasswordController;
     }
 
-    private void writeToLog(String msg){
+    private void writeToLog(String msg) {
         guiController.writeToLog(msg);
     }
 }

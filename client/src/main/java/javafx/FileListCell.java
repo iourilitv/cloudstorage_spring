@@ -49,10 +49,10 @@ public class FileListCell extends ListCell<Item> {
             //выводим название элемента списка
             nameLabel.setText(item.getItemName());
             //если элемент списка это директория
-            if(item.isDirectory()){
+            if (item.isDirectory()) {
                 //показываем картинку папки
                 folderImage.setVisible(true);
-            //если нет
+                //если нет
             } else {
                 //не показываем картинку папки
                 folderImage.setVisible(false);

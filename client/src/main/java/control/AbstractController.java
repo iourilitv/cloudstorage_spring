@@ -9,7 +9,7 @@ public abstract class AbstractController implements Controller {
         return view;
     }
 
-    public void setView (Node view){
+    public void setView(Node view) {
         this.view = view;
     }
 }

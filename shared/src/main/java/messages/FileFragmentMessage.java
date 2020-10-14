@@ -57,9 +57,10 @@ public class FileFragmentMessage extends AbstractMessage {
 
     /**
      * Метод собирает и возвращает строку имени текущего файла-фрагмента.
-     * @param itemName - имя объекта(пока только файла)
+     *
+     * @param itemName          - имя объекта(пока только файла)
      * @param currentFragNumber - номер текущего фрагмента
-     * @param totalFragsNumber - общее количество фрагментров
+     * @param totalFragsNumber  - общее количество фрагментров
      * @return - строку имени файла-фрагмента
      */
     private String constructFileFragName(String itemName, int currentFragNumber, int totalFragsNumber) {
@@ -82,7 +83,8 @@ public class FileFragmentMessage extends AbstractMessage {
 
     /**
      * Метод конструирует имя временной папки для соъранения файлов-фрагментов.
-     * @param itemName - имя объекта(пока только файла)
+     *
+     * @param itemName     - имя объекта(пока только файла)
      * @param fullFileSize - размер файла
      * @return - имя временной папки для соъранения файлов-фрагментов
      */
@@ -93,8 +95,9 @@ public class FileFragmentMessage extends AbstractMessage {
 
     /**
      * Метод чтения данных из определенного места файла в файтовый массив.
+     *
      * @param realItemPathname - строка реального имя к файлу источнику
-     * @param startByte - индекс байта начала считывания байтов из файла источника
+     * @param startByte        - индекс байта начала считывания байтов из файла источника
      * @throws IOException - исключение
      */
     public void readFileDataToFragment(String realItemPathname, long startByte) throws IOException {
@@ -136,7 +139,7 @@ public class FileFragmentMessage extends AbstractMessage {
         return fileFragmentSize;
     }
 
-    public boolean isFinalFileFragment(){
+    public boolean isFinalFileFragment() {
         return currentFragNumber == totalFragsNumber;
     }
 

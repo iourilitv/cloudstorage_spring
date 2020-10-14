@@ -28,6 +28,7 @@ public class AuthorisationController {
     /**
      * Метод отрабатывает клик линка "Registration" в авторизационной форме.
      * Открывает окно Регистрационной формы.
+     *
      * @param actionEvent - событие клик мыши
      */
     @FXML
@@ -43,12 +44,13 @@ public class AuthorisationController {
     /**
      * Метод обрабатывает клик мыши по кнопке "Authorization" в диалоговом окне.
      * Запускает процесс отправки данных на сервер для автторизации.
+     *
      * @param actionEvent - клик мыши по кнопке "Authorization"
      */
     @FXML
     public void onAuthorizationBtnClick(ActionEvent actionEvent) {
         //если введенные логин и пароль корректны
-        if(isLoginPasswordCorrect(login.getText(), password.getText())){
+        if (isLoginPasswordCorrect(login.getText(), password.getText())) {
             //запускаем процесс авторизации
             backController.demandAuthorisation(login.getText(), password.getText());
         }
@@ -56,19 +58,20 @@ public class AuthorisationController {
 
     /**
      * Метод проверяет корректность введенной пары - логин и пароль
-     * @param login - введенные логин
+     *
+     * @param login    - введенные логин
      * @param password - введенные пароль
      * @return - результат проверки корректности введенной пары - логин и пароль
      */
-    private boolean isLoginPasswordCorrect(String login, String password){
+    private boolean isLoginPasswordCorrect(String login, String password) {
         //если логин невалидный
-        if(formChecker.isLoginNotValid(login)){
+        if (formChecker.isLoginNotValid(login)) {
             //выводим соотвествующее предупреждение в лог и в метку сообщений в GUI
             writeToLog("AuthorisationController.isLoginPasswordCorrect() - " + formChecker.getMessage());
             showNoticeInGUI(formChecker.getMessage());
             return false;
             //если пароль невалидный
-        } else if (formChecker.isPasswordNotValid(password)){
+        } else if (formChecker.isPasswordNotValid(password)) {
             writeToLog("AuthorisationController.isLoginPasswordCorrect() - " + formChecker.getMessage());
             showNoticeInGUI(formChecker.getMessage());
             return false;
@@ -79,7 +82,7 @@ public class AuthorisationController {
     /**
      * Метод очистки всех полей авторизационной формы.
      */
-    private void clearAuthorisationForm(){
+    private void clearAuthorisationForm() {
         login.setText("");
         password.setText("");
     }
@@ -87,9 +90,9 @@ public class AuthorisationController {
     /**
      * Метод закрывает окно.
      */
-    public void hideWindow(){
+    public void hideWindow() {
         //если окно показывается
-        if(globParent.getScene().getWindow().isShowing()){
+        if (globParent.getScene().getWindow().isShowing()) {
             //закрываем окно
             globParent.getScene().getWindow().hide();
         }
@@ -115,11 +118,11 @@ public class AuthorisationController {
         this.backController = backController;
     }
 
-    private void showNoticeInGUI(String notice){
+    private void showNoticeInGUI(String notice) {
         backController.getNoticeLabel().setText(notice);
     }
 
-    private void writeToLog(String msg){
+    private void writeToLog(String msg) {
         backController.writeToLog(msg);
     }
 }

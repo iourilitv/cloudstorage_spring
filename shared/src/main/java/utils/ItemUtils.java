@@ -11,14 +11,15 @@ public class ItemUtils {
 
     /**
      * Метод возвращает объект заданной директории.
+     *
      * @param directoryPathname - строковое имя пути к заданной директории
-     * @param defaultDirItem - объект директории по умолчанию
-     * @param rootPath - объект реального пути к корневой директории
+     * @param defaultDirItem    - объект директории по умолчанию
+     * @param rootPath          - объект реального пути к корневой директории
      * @return - объект заданной директории
      */
     public Item createDirectoryItem(String directoryPathname, Item defaultDirItem, Path rootPath) {
         //если текущая и родительская директория являются директориями по умолчанию
-        if(directoryPathname.equals(defaultDirItem.getItemPathname())){
+        if (directoryPathname.equals(defaultDirItem.getItemPathname())) {
             //возвращаем объект элемента директории по умолчанию(начальной)
             return defaultDirItem;
         } else {
@@ -34,8 +35,9 @@ public class ItemUtils {
 
     /**
      * Метод возвращает массив объектов элементов в заданной директории.
+     *
      * @param directoryItem - объект заданной директории
-     * @param rootPath - объект пути к реальной корневой директории
+     * @param rootPath      - объект пути к реальной корневой директории
      * @return - массив объектов элементов в заданной директории
      */
     public Item[] getItemsList(Item directoryItem, Path rootPath) {
@@ -61,7 +63,7 @@ public class ItemUtils {
             items[i] = new Item(itemName, directoryItem.getItemName(), itemPathname,
                     directoryItem.getItemPathname(), files[i].isDirectory());
             //если элемент не является директорией
-            if(!files[i].isDirectory()) {
+            if (!files[i].isDirectory()) {
                 //сохраняем размер файла
                 items[i].setItemSize(files[i].length());
             }
@@ -71,8 +73,9 @@ public class ItemUtils {
 
     /**
      * Метод возвращает строку относительного пути к объекту списка
+     *
      * @param realItemPathname - реальный путь к объекту списка
-     * @param rootPath - объект пути к реальной корневой директории
+     * @param rootPath         - объект пути к реальной корневой директории
      * @return - строку относительного пути к объекту списка
      */
     private String getItemPathname(String realItemPathname, Path rootPath) {
@@ -81,8 +84,9 @@ public class ItemUtils {
 
     /**
      * Метод возвращает реальный путь к объекту элемента.
+     *
      * @param itemPathname - строка относительного пути к объекту элемента
-     * @param rootPath - объект пути к реальной корневой директории
+     * @param rootPath     - объект пути к реальной корневой директории
      * @return - реальный путь к объекту элемента
      */
     public Path getRealPath(String itemPathname, Path rootPath) {
@@ -92,15 +96,16 @@ public class ItemUtils {
 
     /**
      * Метод возвращает объект родительской директории объекта элемента текущей директории.
-     * @param directoryItem - объект текущей директории
+     *
+     * @param directoryItem  - объект текущей директории
      * @param defaultDirItem - объект директории по умолчанию(начальной)
-     * @param rootPath - объект пути к реальной корневой директории
+     * @param rootPath       - объект пути к реальной корневой директории
      * @return - объект родительской директории объекта элемента текущей директории
      */
     public Item getParentDirItem(Item directoryItem, Item defaultDirItem, Path rootPath) {
         //если текущая и родительская директория являются директориями по умолчанию
-        if(directoryItem.isDefaultDirectory() ||
-                directoryItem.getParentName().equals(defaultDirItem.getItemName())){
+        if (directoryItem.isDefaultDirectory() ||
+                directoryItem.getParentName().equals(defaultDirItem.getItemName())) {
             //возвращаем объект элемента директории по умолчанию(начальной)
             return defaultDirItem;
         } else {
@@ -116,8 +121,9 @@ public class ItemUtils {
 
     /**
      * Метод возвращает объект относительного пути к родительской папке относительно директории по умолчанию.
+     *
      * @param itemPathname - строка относительного пути к элементу
-     * @param rootPath - объект пути к реальной корневой директории
+     * @param rootPath     - объект пути к реальной корневой директории
      * @return - объект относительного пути к родителю объекта элемента
      */
     private Path getParentPath(String itemPathname, Path rootPath) {

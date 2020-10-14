@@ -17,6 +17,7 @@ public class HashUtils {
     /**
      * Перегруженный метод запускает процесс генерирации строки хэша для файла,
      * используя алгоритм по умолчанию.
+     *
      * @param file - заданный объект файла
      * @return - строку хэша для файла
      */
@@ -27,8 +28,9 @@ public class HashUtils {
     /**
      * Перегруженный метод запускает процесс генерирации строки хэша для файла,
      * используя заданный алгоритм.
+     *
      * @param algorithm - заданный алгоритм вычисления хэша
-     * @param file - заданный объект файла
+     * @param file      - заданный объект файла
      * @return - строку хэша для файла
      */
     public String hashFile(String algorithm, File file) throws IOException, NoSuchAlgorithmException {
@@ -38,6 +40,7 @@ public class HashUtils {
     /**
      * Перегруженный метод генеририрует строку хэша для байтового массива,
      * используя алгоритм по умолчанию.
+     *
      * @param bytes - заданный байтовый массив
      * @return - строку хэша для байтового массива
      */
@@ -54,8 +57,9 @@ public class HashUtils {
     /**
      * Перегруженный метод генеририрует строку хэша для байтового массива,
      * используя заданный алгоритм.
+     *
      * @param algorithm - заданный алгоритм вычисления хэша
-     * @param bytes - заданный байтовый массив
+     * @param bytes     - заданный байтовый массив
      * @return - строку хэша для байтового массива
      */
     public String hashBytes(String algorithm, byte[] bytes) throws NoSuchAlgorithmException {

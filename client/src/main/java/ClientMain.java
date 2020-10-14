@@ -20,7 +20,7 @@ public class ClientMain extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         GUIController controller = (GUIController) SpringFXMLLoader.load("/MainClient.fxml");
 
         primaryStage.setOnCloseRequest(event -> {

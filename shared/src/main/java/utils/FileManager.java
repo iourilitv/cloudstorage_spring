@@ -16,11 +16,12 @@ public class FileManager {
      * ВНИМАНИЕ! Файл источник должен находиться в [module]src/main/resources/ в папке с именем таким же,
      * как и у класса откуда вызывается этот файла (в данном примере utils/).
      * При этом копия файла будет находиться в корневой папке приложения(где запускается jar-файл)
+     *
      * @param originFilePathname - имя пути к файлу источника в jar-архиве в папке utils/
      * @param targetFilePathname - имя пути к файлу-копии в корневой папке приложения(где запускается jar-файл)
      */
-    public void copyFileToRuntimeRoot(String originFilePathname, String targetFilePathname){
-        try (InputStream inputStream = getClass().getResourceAsStream(originFilePathname)){
+    public void copyFileToRuntimeRoot(String originFilePathname, String targetFilePathname) {
+        try (InputStream inputStream = getClass().getResourceAsStream(originFilePathname)) {
             Files.copy(inputStream,
                     Paths.get(targetFilePathname), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {

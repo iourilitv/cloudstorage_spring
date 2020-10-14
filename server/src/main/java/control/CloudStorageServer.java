@@ -60,7 +60,7 @@ public class CloudStorageServer {
         //инициируем переменную порта соединения
         int port = propertiesHandler.getCurrentProperties().getPort_custom();
         //если пользователем задано другое значение порта
-        if(port > 0){
+        if (port > 0) {
             //применяем значение пользователя
             PORT = port;
         } else {
@@ -73,7 +73,7 @@ public class CloudStorageServer {
         //инициируем строку установленного пользователем пути к корневой директории
         String root_absolute = propertiesHandler.getCurrentProperties().getRoot_absolute();
         //если поле свойства не пустое и путь реально существует(например, usb-флешка вставлена)
-        if(!root_absolute.isEmpty() && Files.exists(Paths.get(root_absolute))){
+        if (!root_absolute.isEmpty() && Files.exists(Paths.get(root_absolute))) {
             //применяем значение пользователя
             STORAGE_ROOT_PATH = Paths.get(root_absolute);
         } else {
@@ -104,8 +104,9 @@ public class CloudStorageServer {
 
     /**
      * Метод-прокладка запускае процесс изменения пароля пользователя в БД.
+     *
      * @param authMessage - объект фвторизационного сообщения
-     * @param ctx - объект соединения с клиентом
+     * @param ctx         - объект соединения с клиентом
      * @return - результат изменения пароля пользователя в БД
      */
     public boolean changeUserPassword(AuthMessage authMessage, ChannelHandlerContext ctx) {
@@ -114,13 +115,13 @@ public class CloudStorageServer {
                 .get(authMessage.getLogin());
         //если в списке зарегистрированных пользователей есть такой логин и
         // если объект его соединения совпадает с соединением текущего пользователя
-        if(checkedCtx != null &&
-                checkedCtx.channel().equals(ctx.channel())){
+        if (checkedCtx != null &&
+                checkedCtx.channel().equals(ctx.channel())) {
 
             //выполняем и возвращаем результат изменения пароля пользователя в БД
             return usersAuthController.changeUserPassword(authMessage.getLogin(),
                     authMessage.getPassword(), authMessage.getNewPassword());
-        //в противном случае
+            //в противном случае
         } else {
             //выводим сообщение в лог и возвращаем false
             printMsg("CloudStorageServer.changeUserPassword() - Wrong login! " +
@@ -132,7 +133,8 @@ public class CloudStorageServer {
 
     /**
      * Метод-прокладка возвращает массив объектов элементов в заданной директории в сетевом хранилище.
-     * @param storageDirItem - объект заданной директории в сетевом хранилище
+     *
+     * @param storageDirItem  - объект заданной директории в сетевом хранилище
      * @param userStorageRoot - объект реального пути к корневой директории пользователя в сетевом хранилище
      * @return - массив объектов элементов в заданной директории в сетевом хранилище
      */
@@ -142,8 +144,9 @@ public class CloudStorageServer {
 
     /**
      * Метод инициирует объект директории пользователя в сетевом хранилище.
+     *
      * @param storageDirPathname - строка имени пути к директории
-     * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
+     * @param userStorageRoot    - объект пути к корневой директории пользователя в сетевом хранилище
      * @return - объект директории пользователя в сетевом хранилище
      */
     public Item createStorageDirectoryItem(String storageDirPathname, Path userStorageRoot) {
@@ -153,11 +156,12 @@ public class CloudStorageServer {
     /**
      * Метод запускает процесс сохранения полученного от клиента объекта(файла)
      * в заданную директорию в сетевом хранилище.
-     * @param fileMessage - объект фалового сообщения
+     *
+     * @param fileMessage     - объект фалового сообщения
      * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
      * @return - результат сохранения объекта
      */
-    public boolean uploadItem(FileMessage fileMessage, Path userStorageRoot){
+    public boolean uploadItem(FileMessage fileMessage, Path userStorageRoot) {
         //инициируем локальную переменную объекта директории назначения в сетевом хранилище
         Item storageToDirItem = fileMessage.getStorageDirectoryItem();
         //инициируем новый объект пути к объекту
@@ -169,7 +173,8 @@ public class CloudStorageServer {
 
     /**
      * Метод запускает процесс сохранения файла-фрагмента из полученного байтового массива.
-     * @param fileFragMsg - объект файлового сообщения
+     *
+     * @param fileFragMsg     - объект файлового сообщения
      * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
      * @return результат процесс сохранения файла-фрагмента из полученного байтового массива
      */
@@ -182,14 +187,15 @@ public class CloudStorageServer {
                 userStorageRoot);
         //инициируем реальный путь к файлу-фрагменту
         Path realToFragPath = Paths.get(
-                        realToTempDirPath.toString(), fileFragMsg.getFragName());
+                realToTempDirPath.toString(), fileFragMsg.getFragName());
         //если сохранение полученного фрагмента файла во временную папку сетевого хранилища прошло удачно
         return fileUtils.saveFileFragment(realToTempDirPath, realToFragPath, fileFragMsg);
     }
 
     /**
      * Метод запускает процесс сборки целого файла из файлов-фрагментов.
-     * @param fileFragMsg - объект файлового сообщения
+     *
+     * @param fileFragMsg     - объект файлового сообщения
      * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
      * @return результат процесса сборки целого файла из файлов-фрагментов
      */
@@ -205,21 +211,22 @@ public class CloudStorageServer {
                 Paths.get(
                         fileFragMsg.getToDirectoryItem().getItemPathname(),
                         fileFragMsg.getItem().getItemName()).toString(),
-                        userStorageRoot);
+                userStorageRoot);
         //возвращаем результат процесса сборки целого объекта(файла) из файлов-фрагментов
         return fileUtils.compileFileFragments(realToTempDirPath, realToFilePath, fileFragMsg);
     }
 
     /**
      * Метод запускает процесс скачивания и отправки клиенту объекта элемента(пока только файла).
-     * @param fileMessage - объект фалового сообщения
+     *
+     * @param fileMessage     - объект фалового сообщения
      * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
-     * @param ctx - объект сетевого соединения
+     * @param ctx             - объект сетевого соединения
      */
     public void downloadItem(FileMessage fileMessage, Path userStorageRoot,
                              ChannelHandlerContext ctx) throws IOException {
         //если объект элемента - это директория
-        if(fileMessage.getItem().isDirectory()){
+        if (fileMessage.getItem().isDirectory()) {
             //FIXME Upd 26. что-то делаем, а пока выходим
             printMsg("[server]CloudStorageServer.downloadItem() - Directory downloading is not allowed!");
             return;
@@ -229,7 +236,7 @@ public class CloudStorageServer {
         //вычисляем размер файла
         long fileSize = Files.size(realStorageItemPath);
         //если размер запрашиваемого файла больше константы размера фрагмента
-        if(fileSize > FileFragmentMessage.CONST_FRAG_SIZE){
+        if (fileSize > FileFragmentMessage.CONST_FRAG_SIZE) {
             //запускаем метод отправки файла по частям
             downloadFileByFrags(fileMessage.getClientDirectoryItem(),
                     fileMessage.getItem(), fileSize, userStorageRoot, ctx);
@@ -244,11 +251,12 @@ public class CloudStorageServer {
     /**
      * Метод-прокладка запускает процесс нарезки и отправки на сервер по частям большого файла
      * размером более константы максмального размера фрагмента файла
+     *
      * @param clientToDirItem - объект директории назначения в клиенте
-     * @param storageItem - объект элемента в сетевом хранилище
-     * @param fullFileSize - размер целого файла в байтах
+     * @param storageItem     - объект элемента в сетевом хранилище
+     * @param fullFileSize    - размер целого файла в байтах
      * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
-     * @param ctx - сетевое соединение
+     * @param ctx             - сетевое соединение
      */
     private void downloadFileByFrags(Item clientToDirItem, Item storageItem,
                                      long fullFileSize, Path userStorageRoot,
@@ -260,10 +268,11 @@ public class CloudStorageServer {
     /**
      * Метод-прокладка запускает процесс отправки клиенту отдельного фрагмента файла
      * из сетевого хранилища.
-     * @param fileFragMsg - объект сообщения фрагмента файла из объекта сообщения(команды)
-     * @param command - переменная типа команды
+     *
+     * @param fileFragMsg     - объект сообщения фрагмента файла из объекта сообщения(команды)
+     * @param command         - переменная типа команды
      * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
-     * @param ctx - объект сетевого соединения
+     * @param ctx             - объект сетевого соединения
      */
     public void sendFileFragment(FileFragmentMessage fileFragMsg, Commands command,
                                  Path userStorageRoot, ChannelHandlerContext ctx) {
@@ -280,21 +289,22 @@ public class CloudStorageServer {
 
     /**
      * Метод скачивания и отправки целого небольшого файла размером менее
+     *
      * @param clientToDirItem - объект директории назначения клиента
-     * @param storageItem - объект директории источника в сетевом хранилище, где хранится файл источник
-     * @param item - объект элемента в сетевом хранилище
-     * @param fileSize - размер объекта(файла)
+     * @param storageItem     - объект директории источника в сетевом хранилище, где хранится файл источник
+     * @param item            - объект элемента в сетевом хранилище
+     * @param fileSize        - размер объекта(файла)
      * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
-     * @param ctx - объект сетевого соединения
+     * @param ctx             - объект сетевого соединения
      */
     private void downloadEntireFile(Item clientToDirItem, Item storageItem, Item item,
-                       long fileSize, Path userStorageRoot, ChannelHandlerContext ctx){
+                                    long fileSize, Path userStorageRoot, ChannelHandlerContext ctx) {
         //создаем объект файлового сообщения
         FileMessage fileMessage = new FileMessage(storageItem, clientToDirItem, item, fileSize);
         Commands command;
         //если скачивание прошло удачно
-        if(fileUtils.readFile(itemUtils.getRealPath(storageItem.getItemPathname(), userStorageRoot),
-                fileMessage)){
+        if (fileUtils.readFile(itemUtils.getRealPath(storageItem.getItemPathname(), userStorageRoot),
+                fileMessage)) {
             //инициируем переменную типа команды - ответ cо скачанным файлом
             command = Commands.SERVER_RESPONSE_DOWNLOAD_ITEM_OK;
             //если что-то пошло не так
@@ -310,8 +320,9 @@ public class CloudStorageServer {
 
     /**
      * Метод переименовывает объект элемента списка в серверном хранилище.
-     * @param origin - текущий объект элемента списка в серверном хранилище
-     * @param newName - новое имя элемента
+     *
+     * @param origin          - текущий объект элемента списка в серверном хранилище
+     * @param newName         - новое имя элемента
      * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
      * @return - результат переименования
      */
@@ -330,8 +341,9 @@ public class CloudStorageServer {
 
     /**
      * Метод создает новую папку в текущей директории в сетевом хранилище.
+     *
      * @param directoryMessage - сообщение о директории
-     * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
+     * @param userStorageRoot  - объект пути к корневой директории пользователя в сетевом хранилище
      * @return - результат создания новой папки в текущей директории в сетевом хранилище
      */
     public boolean createNewFolder(DirectoryMessage directoryMessage, Path userStorageRoot) {
@@ -347,6 +359,7 @@ public class CloudStorageServer {
 
     /**
      * Метод создает новую корневую директорию для нового пользователя.
+     *
      * @param login - логин нового пользователя
      * @return - результат создания новой корневой директории для нового пользователя
      */
@@ -359,6 +372,7 @@ public class CloudStorageServer {
 
     /**
      * Метод проверяет есть ли уже корневая директория для заданного логина.
+     *
      * @param login - логин нового пользователя
      * @return - результат проверки есть ли уже корневая директория для заданного логина
      */
@@ -368,7 +382,8 @@ public class CloudStorageServer {
 
     /**
      * Метод удаляет объект элемента списка(файл или папку) в текущей директории в серверном хранилище.
-     * @param item - объект списка в серверном хранилище
+     *
+     * @param item            - объект списка в серверном хранилище
      * @param userStorageRoot - объект пути к корневой директории пользователя в сетевом хранилище
      * @return - результат удаления
      */
@@ -396,7 +411,7 @@ public class CloudStorageServer {
         return fileUtils;
     }
 
-    public void printMsg(String msg){
+    public void printMsg(String msg) {
         log.append(msg).append("\n");
     }
 

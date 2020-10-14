@@ -34,14 +34,14 @@
     <build>
         <finalName>CloudStorageClient_LYS</finalName>
         <plugins>
-                <plugin>
-                    <groupId>com.zenjava</groupId>
-                    <artifactId>javafx-maven-plugin</artifactId>
-                    <version>2.0</version>
-                    <configuration>
-                        <mainClass>ClientMain</mainClass>
-                    </configuration>
-                </plugin>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                    <mainClass>ClientMain</mainClass>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -76,15 +76,15 @@
 
 </project>
 
-<!--<build>-->
-<!--<plugins>-->
-<!--    <plugin>-->
-<!--        <groupId>com.zenjava</groupId>-->
-<!--        <artifactId>javafx-maven-plugin</artifactId>-->
-<!--        <version>2.0</version>-->
-<!--        <configuration>-->
-<!--            <mainClass>ru.todolist.TodoApplication</mainClass>-->
-<!--        </configuration>-->
-<!--    </plugin>-->
-<!--</plugins>-->
-<!--</build>-->
+        <!--<build>-->
+        <!--<plugins>-->
+        <!--    <plugin>-->
+        <!--        <groupId>com.zenjava</groupId>-->
+        <!--        <artifactId>javafx-maven-plugin</artifactId>-->
+        <!--        <version>2.0</version>-->
+        <!--        <configuration>-->
+        <!--            <mainClass>ru.todolist.TodoApplication</mainClass>-->
+        <!--        </configuration>-->
+        <!--    </plugin>-->
+        <!--</plugins>-->
+        <!--</build>-->

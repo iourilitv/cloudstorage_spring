@@ -84,7 +84,7 @@ public class ServerSpringConfig {
         ds.setPassword("mysql!1qwertY");
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
         Properties properties = ds.getConnectionProperties();
-        if(properties == null) {
+        if (properties == null) {
             properties = new Properties();
             properties.setProperty("MaxPooledStatements", "250");
         }

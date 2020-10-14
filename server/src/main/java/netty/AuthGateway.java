@@ -29,9 +29,10 @@ public class AuthGateway extends ChannelInboundHandlerAdapter {
         usersAuthController = storageServer.getUsersAuthController();
     }
 
-     /**
+    /**
      * Метот обрабатывает событие - установление соединения с клиентом.
      * По событию отправляет сообщение-уведомление клиенту.
+     *
      * @param ctx - объект соединения netty, установленного с клиентом
      */
     @Override
@@ -48,6 +49,7 @@ public class AuthGateway extends ChannelInboundHandlerAdapter {
 
     /**
      * Метот обрабатывает событие - разрыв соединения с клиентом
+     *
      * @param ctx - объект соединения netty, установленного с клиентом
      */
     @Override
@@ -64,7 +66,8 @@ public class AuthGateway extends ChannelInboundHandlerAdapter {
      * Метод обрабатывает событие - получение десериализованного объекта.
      * Инициирует объект команды из объекта сообщения и обрабатывает только
      * запрос от клиента на авторизацию.
-     * @param ctx - объект соединения netty, установленного с клиентом
+     *
+     * @param ctx       - объект соединения netty, установленного с клиентом
      * @param msgObject - десериализованный объект сообщения
      */
     @Override
@@ -74,15 +77,15 @@ public class AuthGateway extends ChannelInboundHandlerAdapter {
             CommandMessage commandMessage = (CommandMessage) msgObject;
             //если это команда на отсоединение клиента от сервера
             //в авторизованном режиме
-            if(commandMessage.getCommand() == Commands.REQUEST_SERVER_DISCONNECT){
+            if (commandMessage.getCommand() == Commands.REQUEST_SERVER_DISCONNECT) {
                 //вызываем метод обработки запроса от клиента
                 onDisconnectClientRequest(commandMessage);
                 //если это команда на регистрацию нового пользователя в сетевом хранилище
-            } else if(commandMessage.getCommand() == Commands.REQUEST_SERVER_REGISTRATION){
+            } else if (commandMessage.getCommand() == Commands.REQUEST_SERVER_REGISTRATION) {
                 //вызываем метод обработки запроса от клиента
                 onRegistrationUserClientRequest(ctx, commandMessage);
                 //если это команда на авторизацию пользователя в сетевом хранилище
-            } else if(commandMessage.getCommand() == Commands.REQUEST_SERVER_AUTH){
+            } else if (commandMessage.getCommand() == Commands.REQUEST_SERVER_AUTH) {
                 //вызываем метод обработки запроса от клиента
                 onAuthClientRequest(ctx, commandMessage);
             }
@@ -94,6 +97,7 @@ public class AuthGateway extends ChannelInboundHandlerAdapter {
     /**
      * Метод обрабатывает полученный от клиента запрос на отсоединение пользователя
      * от сервера в НЕ авторизованном режиме.
+     *
      * @param commandMessage - объект сообщения(команды)
      */
     private void onDisconnectClientRequest(CommandMessage commandMessage) {
@@ -111,7 +115,8 @@ public class AuthGateway extends ChannelInboundHandlerAdapter {
     /**
      * Метод обрабатывает полученный от клиента запрос на регистрацию
      * нового пользователя в облачное хранилище.
-     * @param ctx - объект соединения netty, установленного с клиентом
+     *
+     * @param ctx            - объект соединения netty, установленного с клиентом
      * @param commandMessage - объект сообщения(команды)
      */
     private void onRegistrationUserClientRequest(ChannelHandlerContext ctx,
@@ -119,10 +124,10 @@ public class AuthGateway extends ChannelInboundHandlerAdapter {
         //вынимаем объект авторизационного сообщения из объекта сообщения(команды)
         AuthMessage authMessage = (AuthMessage) commandMessage.getMessageObject();
         //если регистрация клиента в облачном хранилище прошла удачно
-        if(usersAuthController.registerUser(authMessage)){
+        if (usersAuthController.registerUser(authMessage)) {
             //меняем команду на успешную
             command = Commands.SERVER_RESPONSE_REGISTRATION_OK;
-        //если регистрация клиента в облачном хранилище не прошла
+            //если регистрация клиента в облачном хранилище не прошла
         } else {
             //инициируем переменную типа команды - ответ об ошибке
             //в этом случае, в объекте сообщения(команды) вернем принятый от клиента объект авторизационного сообщения
@@ -141,7 +146,8 @@ public class AuthGateway extends ChannelInboundHandlerAdapter {
 
     /**
      * Метод обрабатывает полученный от клиента запрос на авторизацию в облачное хранилище
-     * @param ctx - объект соединения netty, установленного с клиентом
+     *
+     * @param ctx            - объект соединения netty, установленного с клиентом
      * @param commandMessage - объект сообщения(команды)
      */
     private void onAuthClientRequest(ChannelHandlerContext ctx, CommandMessage commandMessage) {
@@ -149,14 +155,14 @@ public class AuthGateway extends ChannelInboundHandlerAdapter {
         AuthMessage authMessage = (AuthMessage) commandMessage.getMessageObject();
         //если есть директория с именем логина пользователя и
         // авторизации клиента в облачном хранилище прошла удачно
-        if(usersAuthController.isUserRootDirExist(authMessage.getLogin()) &&
-                usersAuthController.authorizeUser(authMessage, ctx)){
+        if (usersAuthController.isUserRootDirExist(authMessage.getLogin()) &&
+                usersAuthController.authorizeUser(authMessage, ctx)) {
             //меняем команду на успешную
             command = Commands.SERVER_RESPONSE_AUTH_OK;
             //пробрасываем дальше объект сообщения об успешной авторизации клиента
             ctx.fireChannelRead(new CommandMessage(command, authMessage.getLogin()));
-        //если авторизации клиента в облачном хранилище не прошла или
-        // директория с именем логина отсутствует
+            //если авторизации клиента в облачном хранилище не прошла или
+            // директория с именем логина отсутствует
         } else {
             //инициируем переменную типа команды - ответ об ошибке
             //в этом случае, в объекте сообщения(команды) вернем принятый от клиента объект авторизационного сообщения
@@ -178,7 +184,7 @@ public class AuthGateway extends ChannelInboundHandlerAdapter {
         ctx.close();
     }
 
-    public void printMsg(String msg){
+    public void printMsg(String msg) {
         storageServer.printMsg(msg);
     }
 }

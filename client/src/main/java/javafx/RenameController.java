@@ -17,12 +17,13 @@ public class RenameController {
 
     /**
      * Метод обрабатывает клик мыши по кнопке "Confirm" в диалоговом окне ввода нового имени
+     *
      * @param actionEvent - клик мыши по кнопке "Confirm"
      */
     @FXML
     public void saveNewName(ActionEvent actionEvent) {
         //если введенное новое имя корректно
-        if(isNewItemNameCorrect(newName.getText())){
+        if (isNewItemNameCorrect(newName.getText())) {
             //записываем новое имя в соответствующую переменную главного контроллера
             backController.setNewName(newName.getText());
             //закрываем модальное окно
@@ -32,10 +33,11 @@ public class RenameController {
 
     /**
      * Метод проверяет правильность введенного нового имени объекта списка.
+     *
      * @param newName - введенное новое имя объекта списка(файла или папки)
      * @return - результат проверки
      */
-    private boolean isNewItemNameCorrect(String newName){
+    private boolean isNewItemNameCorrect(String newName) {
         return !newName.trim().isEmpty();
     }
 
